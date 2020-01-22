@@ -29,8 +29,13 @@ $$n(t+1) = n(t) + r\times n(t)\times \left(1-n(t)\right)$$
 
 ## Model analysis
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cc798542f778edcf5d2d985e7b0b203cb0b9f485
 
 ## Simulations
+
+Testing deployment
 
 ## Conclusions
