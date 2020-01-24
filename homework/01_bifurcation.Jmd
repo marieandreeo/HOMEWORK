@@ -4,7 +4,7 @@ permalink: bifurcation/
 layout: page
 ---
 
-## Introduction
+# Introduction
 <!--
 > Starting from the logistic model of growth with competition, you will (i)
 > propose an analysis to show how we can find a vaalue of the growth rate *r*
@@ -19,7 +19,7 @@ layout: page
 In nature, the population size of any species will vary in time depending on mutiple factors (predation, resources, competition, climatic events, etc.). Models were developped to represent those variations. Among them, the logistic growth allows to describe the population size of a specie considering inderectly different parameters that affects the rate of growth (ex: the amount of resources limited implying that there is less resources as the population grows, higher predation pressure, higher disease incidence). 
 
 
-# Required packages
+## Required packages
 
 ```julia
 using Plots
@@ -44,14 +44,17 @@ $$n(t+1) = n(t) + r\times n(t)\times \left(1-n(t)\right)$$
 This model is a discrete time model, involving that an equilibrium is reached every time $n(t+1) = n(t)$. The aim is to find a way to identify the value of the growth rate *r* where the population cannot persist, and to visually represent that in a bifurcation diagram.
 
 ## Simulations
-# Growth rate after which the population cannot persist
+### Growth rate after which the population cannot persist
 
 
-# Bifurcation diagram
+### Bifurcation diagram
 
 ```julia
 
 ```
+
+The bifurcation can be scattered by iterating the recursion equation (here,
+200 time steps were used) through diffrent values of *r* (here variating from 1 to 3 with steps of 0.001). The last 80th points of every simulation were then scattered in function of their corresponding *r*. 
 
 ```julia
 ## Creation of the Bifurcation Diagram
@@ -83,8 +86,8 @@ for r in 1:0.001:3
 end
 
 # Scattering of the 80 last values of the population size, for all values of r
-scatter(data_x, data_y, fmt = :png)
-
+scatter(data_x, data_y, fmt = :png, title = "Bifurcation diagram",
+xlabel = "Intrinsic growth rate (r)", ylabel ="Population sizes observed between t= 181 and 200")
 ```
 
 ## Conclusions
