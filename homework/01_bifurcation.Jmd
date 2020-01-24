@@ -4,8 +4,8 @@ permalink: bifurcation/
 layout: page
 ---
 
-# Introduction
-
+## Introduction
+<!--
 > Starting from the logistic model of growth with competition, you will (i)
 > propose an analysis to show how we can find a vaalue of the growth rate *r*
 > after which the population cannot persist (this will involve finding the
@@ -14,8 +14,12 @@ layout: page
 > that there is indeed a maximal growth rate after which the system becomes
 > unstable. Please note that you should not attempt to calculate this value by
 > hand, but you may attempt to guess it based on the results of the second step.
+-->
 
-## Required packages
+In nature, the population size of any species will vary in time depending on mutiple factors (predation, resources, competition, climatic events, etc.). Models were developped to represent those variations. Among them, the logistic growth allows to describe the population size of a specie considering inderectly different parameters that affects the rate of growth (ex: the amount of resources limited implying that there is less resources as the population grows, higher predation pressure, higher disease incidence). 
+
+
+# Required packages
 
 ```julia
 using Plots
@@ -25,15 +29,25 @@ using Plots
 
 <!-- Use this model, it assumes that K = 1, making the system dimensionless -->
 
+We will use the following recursion equation of the logistic growth model:
 
+$$n(t+1) = n(t) + r\times n(t)\times \left(1-\frac{n(t)}{K}\right)$$
+
+To make the system dimensionless, we will assume that K = 1. the recursion equation then becomes:
 
 $$n(t+1) = n(t) + r\times n(t)\times \left(1-n(t)\right)$$
+
+ 
 
 ## Model analysis
 
 This model is a discrete time model, involving that an equilibrium is reached every time $n(t+1) = n(t)$. The aim is to find a way to identify the value of the growth rate *r* where the population cannot persist, and to visually represent that in a bifurcation diagram.
 
 ## Simulations
+# Growth rate after which the population cannot persist
+
+
+# Bifurcation diagram
 
 
 
