@@ -91,3 +91,5 @@ xlabel = "Intrinsic growth rate (r)", ylabel ="Population sizes observed between
 ```
 
 ## Conclusions
+
+We have designed a simple method to identify and visualise at which intrinsic growth rate a population cannot persist, using the logistic growth model.  
