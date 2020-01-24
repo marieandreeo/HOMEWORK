@@ -25,17 +25,16 @@ using Plots
 
 <!-- Use this model, it assumes that K = 1, making the system dimensionless -->
 
+
+
 $$n(t+1) = n(t) + r\times n(t)\times \left(1-n(t)\right)$$
 
 ## Model analysis
 
-<<<<<<< HEAD
-
-=======
->>>>>>> cc798542f778edcf5d2d985e7b0b203cb0b9f485
+This model is a discrete time model, involving that an equilibrium is reached every time $n(t+1) = n(t)$. The aim is to find a way to identify the value of the growth rate *r* where the population cannot persist, and to visually represent that in a bifurcation diagram.
 
 ## Simulations
 
-Testing deployment
+
 
 ## Conclusions
