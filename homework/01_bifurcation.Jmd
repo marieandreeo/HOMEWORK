@@ -83,7 +83,7 @@ for r in 1:0.001:3
 end
 
 # Scattering of the 80 last values of the population size, for all values of r
-scatter(data_x, data_y, fmt = :png, title = "Bifurcation diagram",
+scatter(data_x, data_y, title = "Bifurcation diagram",
 xlabel = "Intrinsic growth rate (r)", ylabel ="Population sizes observed between t= 181 and 200")
 ```
 
