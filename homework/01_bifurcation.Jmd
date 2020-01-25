@@ -74,7 +74,7 @@ growth_rate_actual = zeros(Float64, 200)
 module data_xy
     data_x = zeros(Float64, 0)
     data_y = zeros(Float64, 0)
-end
+end;
         
 # Calculation of the population size for different values of r 
 for r in 1:0.001:3
