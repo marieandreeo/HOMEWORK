@@ -71,11 +71,14 @@ pop_size[1] = 0.1
 growth_rate = collect(1:0.001:3)
 growth_rate_actual = zeros(Float64, 200)
 
-data_x = zeros(Float64, 0)
-data_y = zeros(Float64, 0)
+module data_xy
+    data_x = zeros(Float64, 0)
+    data_y = zeros(Float64, 0)
+end
         
 # Calculation of the population size for different values of r 
 for r in 1:0.001:3
+    import ..data_xy
     for i in 2:length(pop_size)
         pop_size[i] = logistic_growth(pop_size[i-1], r)
         growth_rate_actual[i-1] = r
