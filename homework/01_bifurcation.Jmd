@@ -53,6 +53,85 @@ This model is a discrete time model, involving that an equilibrium is reached ev
 
 ```
 
+```julia
+## Reprensentation of n(t+1) in function of n(t)
+#Cobweb Plots of the Logistic Equation
+plot()
+using Plots
+growth_rate = collect(1:0.001:3)
+
+function logistic_growth(n::Float64, r::Float64)
+    return (n + (r*n*(1.0-(n/1.0))))
+end
+
+pop_size = zeros(Float64, 75)
+pop_size[1] = 0.1
+
+# low r
+r = 0.7
+for i in 2:length(pop_size)
+    pop_size[i] = logistic_growth(pop_size[i-1], r)
+end
+plot(pop_size[1:(length(pop_size)-1)], pop_size[2:end])
+
+#Linear function
+y(x) = x
+plot!(y, legend=:none, xaxis="Population size at time t, n(t)", yaxis ="Population size at time t+1, n(t+1)", title="Cobweb using a low growth rate (r=0.7)")
+```
+
+```julia
+## Reprensentation of n(t+1) in function of n(t)
+#Cobweb Plots of the Logistic Equation
+plot()
+using Plots
+growth_rate = collect(1:0.001:3)
+
+function logistic_growth(n::Float64, r::Float64)
+    return (n + (r*n*(1.0-(n/1.0))))
+end
+
+pop_size = zeros(Float64, 75)
+pop_size[1] = 0.1
+
+# intermediate r
+r = 1.8
+for i in 2:length(pop_size)
+    pop_size[i] = logistic_growth(pop_size[i-1], r)
+end
+plot(pop_size[1:(length(pop_size)-1)], pop_size[2:end])
+
+#Linear function
+y(x) = x
+plot!(y, legend=:none, xaxis="Population size at time t, n(t)", yaxis ="Population size at time t+1, n(t+1)", title="Cobweb using an intermediate growth rate (r=1.8)")
+```
+
+```julia
+## Reprensentation of n(t+1) in function of n(t)
+#Cobweb Plots of the Logistic Equation
+plot()
+using Plots
+growth_rate = collect(1:0.001:3)
+
+function logistic_growth(n::Float64, r::Float64)
+    return (n + (r*n*(1.0-(n/1.0))))
+end
+
+pop_size = zeros(Float64, 75)
+pop_size[1] = 0.1
+
+#high r
+r = 2.1
+
+for i in 2:length(pop_size)
+    pop_size[i] = logistic_growth(pop_size[i-1], r)
+end
+plot(pop_size[1:(length(pop_size)-1)], pop_size[2:end])
+
+#Linear function
+y(x) = x
+plot!(y, legend=:none, xaxis="Population size at time t, n(t)", yaxis ="Population size at time t+1, n(t+1)", title="Cobweb using a high growth rate (r=2.1)")
+```
+
 The bifurcation can be scattered by iterating the recursion equation (here,
 200 time steps were used) through diffrent values of *r* (here variating from 1 to 3 with steps of 0.001). The last 80th points of every simulation were then scattered in function of their corresponding *r*. 
 
