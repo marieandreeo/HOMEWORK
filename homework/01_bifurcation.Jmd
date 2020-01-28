@@ -46,12 +46,61 @@ This model is a discrete time model, involving that an equilibrium is reached ev
 ## Simulations
 ### Growth rate after which the population cannot persist
 
+```julia
+## Logistic growth function with low r
 
-### Bifurcation diagram
+function logistic_growth(n::Float64, r::Float64)
+    return (n+(r*n*(1-(n))))
+end
+
+pop_size = zeros(Float64, 200)
+pop_size[1] = 0.1
+
+
+for i in 2:length(pop_size)
+    pop_size[i] = logistic_growth(pop_size[i-1], 0.7)
+end
+
+plot(pop_size)
+```
 
 ```julia
+## Logistic growth function with intermediate r
 
+function logistic_growth(n::Float64, r::Float64)
+    return (n+(r*n*(1-(n))))
+end
+
+pop_size = zeros(Float64, 200)
+pop_size[1] = 0.1
+
+
+for i in 2:length(pop_size)
+    pop_size[i] = logistic_growth(pop_size[i-1], 1.8)
+end
+
+plot(pop_size)
 ```
+
+
+```julia
+## Logistic growth function with high r
+
+function logistic_growth(n::Float64, r::Float64)
+    return (n+(r*n*(1-(n))))
+end
+
+pop_size = zeros(Float64, 200)
+pop_size[1] = 0.1
+
+
+for i in 2:length(pop_size)
+    pop_size[i] = logistic_growth(pop_size[i-1], 3.0)
+end
+
+plot(pop_size)
+```
+
 
 ```julia
 ## Reprensentation of n(t+1) in function of n(t)
@@ -135,6 +184,8 @@ plot!(y, legend=:none, xaxis="Population size at time t, n(t)", yaxis ="Populati
 The bifurcation can be scattered by iterating the recursion equation (here,
 200 time steps were used) through diffrent values of *r* (here variating from 1 to 3 with steps of 0.001). The last 80th points of every simulation were then scattered in function of their corresponding *r*. 
 
+### Bifurcation diagram
+
 ```julia
 ## Creation of the Bifurcation Diagram
 
@@ -143,7 +194,7 @@ function logistic_growth(n::Float64, r::Float64)
     return (n + (r*n*(1.0-n)))
 end
 
-function wrapper()
+function bifurcation()
        # Creation of the variables
     pop_size = zeros(Float64, 200)
     pop_size[1] = 0.1
@@ -167,10 +218,10 @@ function wrapper()
 
     # Scattering of the 80 last values of the population size, for all values of r
     scatter(data_x, data_y, fmt = :png, title = "Bifurcation diagram",
-    xlabel = "Intrinsic growth rate (r)", ylabel ="Population sizes observed between t= 181 and 200") 
+    xlabel = "Intrinsic growth rate (r)", ylabel ="Population sizes observed between t= 181 and 200", legend=:none) 
 end
 
-wrapper()
+bifurcation()
 ```
 
 ## Conclusions
