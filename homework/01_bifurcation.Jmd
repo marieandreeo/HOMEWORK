@@ -22,6 +22,9 @@ In nature, the population size of any species will vary in time depending on mut
 
 ```julia
 using Plots
+import Pkg
+Pkg.add("Measures")
+using Measures
 ```
 
 ## Model description and justification
@@ -87,7 +90,7 @@ for i in 2:length(pop_size)
 end
 
 #generation of graphic representation
-plot(pop_size, xaxis = "Number of generations", yaxis= "Population size", title = "Variation of the population size over time with a intermediate r (r=2.0)", legend=:none)
+plot(pop_size, xaxis = "Number of generations", yaxis= "Population size", title = "Variation of the population size over time with a intermediate r (r=2.0)", legend=:none, left_margin = 10mm, bottom_margin = 10mm)
 ```
 
 ```julia
@@ -108,9 +111,9 @@ for i in 2:length(pop_size)
 end
 
 #generation of graphic representation
-plot(pop_size, xaxis = "Number of generations", yaxis= "Population size", title = "Variation of the population size over time with a high r (r=3.0)", legend=:none)
+plot(pop_size, xaxis = "Number of generations", yaxis= "Population size", title = "Variation of the population size over time with a high r (r=3.0)", legend=:none, left_margin = 10mm, bottom_margin = 10mm)
 ```
-We see that at r=3.0 the population size varies between many values, at is almost reaching the extinction (%n(t)$=0).
+We see that at r=3.0 the population size varies between many values, and is almost reaching the extinction (%n(t)$=0).
 
 We then try to identify if the population reaches the equilibrium by representing $n(t+1)$ in function of $n(t)$, along with a linear function: 
 
@@ -133,11 +136,11 @@ r = 0.7
 for i in 2:length(pop_size)
     pop_size[i] = logistic_growth(pop_size[i-1], r)
 end
-plot(pop_size[1:(length(pop_size)-1)], pop_size[2:end])
+plot(pop_size[1:(length(pop_size)-1)], pop_size[2:end], left_margin = 10mm, bottom_margin = 10mm)
 
 #Linear function
 y(x) = x
-plot!(y, legend=:none, xaxis="Population size at time t, n(t)", yaxis ="Population size at time t+1, n(t+1)", title="Cobweb using a low growth rate (r=0.7)")
+plot!(y, legend=:none, xaxis="Population size at time t, n(t)", yaxis ="Population size at time t+1, n(t+1)", title="Cobweb using a low growth rate (r=0.7)", left_margin = 10mm, bottom_margin = 10mm)
 ```
 
 ```julia
@@ -157,11 +160,11 @@ r = 2.0
 for i in 2:length(pop_size)
     pop_size[i] = logistic_growth(pop_size[i-1], r)
 end
-plot(pop_size[1:(length(pop_size)-1)], pop_size[2:end])
+plot(pop_size[1:(length(pop_size)-1)], pop_size[2:end], left_margin = 10mm, bottom_margin = 10mm)
 
 #Linear function
 y(x) = x
-plot!(y, legend=:none, xaxis="Population size at time t, n(t)", yaxis ="Population size at time t+1, n(t+1)", title="Cobweb using an intermediate growth rate (r=2.0)")
+plot!(y, legend=:none, xaxis="Population size at time t, n(t)", yaxis ="Population size at time t+1, n(t+1)", title="Cobweb using an intermediate growth rate (r=2.0)", left_margin = 10mm, bottom_margin = 10mm)
 ```
 
 ```julia
@@ -182,11 +185,11 @@ r = 3.0
 for i in 2:length(pop_size)
     pop_size[i] = logistic_growth(pop_size[i-1], r)
 end
-plot(pop_size[1:(length(pop_size)-1)], pop_size[2:end])
+plot(pop_size[1:(length(pop_size)-1)], pop_size[2:end], left_margin = 10mm, bottom_margin = 10mm)
 
 #Linear function
 y(x) = x
-plot!(y, legend=:none, xaxis="Population size at time t, n(t)", yaxis ="Population size at time t+1, n(t+1)", title="Cobweb using a high growth rate (r=3.0)")
+plot!(y, legend=:none, xaxis="Population size at time t, n(t)", yaxis ="Population size at time t+1, n(t+1)", title="Cobweb using a high growth rate (r=3.0)", left_margin = 10mm, bottom_margin = 10mm)
 ```
 We see that at a low r, the logistic growth function crosses the linear function where the equilibrium is reach. For an intermediate r, the logistic growth function will oscillate before reaching the equilibrium. Finnaly, for a high value of r the system will never be able to reach the equilibrium. 
 
@@ -228,7 +231,7 @@ function bifurcation()
 
     # Scattering of the 80 last values of the population size, for all values of r
     scatter(data_x, data_y, fmt = :png, title = "Bifurcation diagram",
-    xlabel = "Intrinsic growth rate (r)", ylabel ="Population sizes observed between t= 181 and 200", legend=:none) 
+    xlabel = "Intrinsic growth rate (r)", ylabel ="Population sizes observed between t= 181 and 200", legend=:none, left_margin = 10mm, bottom_margin = 10mm) 
 end
 
 bifurcation()
