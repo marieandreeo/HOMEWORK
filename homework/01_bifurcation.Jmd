@@ -41,12 +41,12 @@ $$n(t+1) = n(t) + r\times n(t)\times \left(1-n(t)\right)$$
 
 This model is a discrete time model, involving that an equilibrium is reached every time $n(t+1) = n(t)$. The aim is to find a way to identify the value of the growth rate *r* where the population cannot persist, and to visually represent that in a bifurcation diagram.
 
-To achieve that, we will represent the variation of the population size over time for different values of *r* to give an idea of how the model reacts. We will then represent graphically $n(t+1)$ in function of $n(t)$ on the same graph as a linear function, for diffrent values of *r*, to identify if the population reaches the equillibrium. Finally, the bifurcation diagram of this model will help to identify the value of *r* where the population goes instinct. 
+To achieve that, we will represent the variation of the population size over time for different values of *r* to give an idea of how the model reacts. We will then represent graphically $n(t+1)$ in function of $n(t)$ on the same graph as a linear function, for diffrent values of *r*, to identify if the population reaches the equillibrium. This equilibrium is found when both functions intersect, meaning that there is no more variation in population size ($n(t+1) = n(t)$) Finally, the bifurcation diagram of this model will help to identify the value of *r* where the population goes instinct. 
 
 ## Simulations
 ### Growth rate after which the population cannot persist
 
-To give us an insight of how the population size varies acording to the logistic growth model, we first represent the this variation for diffrent values of *r*:
+To give us an insight of how the population size varies acording to the logistic growth model, we first represent the this variation for different values of *r*:
 
 ```julia
 ## Logistic growth function with low r
@@ -145,7 +145,7 @@ pop_size = zeros(Float64, 75)
 pop_size[1] = 0.1
 
 # intermediate r
-r = 12.0
+r = 2.0
 for i in 2:length(pop_size)
     pop_size[i] = logistic_growth(pop_size[i-1], r)
 end
@@ -171,7 +171,7 @@ pop_size = zeros(Float64, 75)
 pop_size[1] = 0.1
 
 #high r
-r = 2.1
+r = 3.0
 
 for i in 2:length(pop_size)
     pop_size[i] = logistic_growth(pop_size[i-1], r)
@@ -180,7 +180,7 @@ plot(pop_size[1:(length(pop_size)-1)], pop_size[2:end])
 
 #Linear function
 y(x) = x
-plot!(y, legend=:none, xaxis="Population size at time t, n(t)", yaxis ="Population size at time t+1, n(t+1)", title="Cobweb using a high growth rate (r=2.1)")
+plot!(y, legend=:none, xaxis="Population size at time t, n(t)", yaxis ="Population size at time t+1, n(t+1)", title="Cobweb using a high growth rate (r=3.0)")
 ```
 
 The bifurcation can be scattered by iterating the recursion equation (here,
@@ -228,4 +228,4 @@ bifurcation()
 
 ## Conclusions
 
-We have designed a simple method to identify and visualise at which intrinsic growth rate a population cannot persist, using the logistic growth model. By representing the varition of the population for diffrent values of *r*, we were able to see that the population starts to be unstable when *r* is above 2, and we saw that the population is almost instinct when *r* reaches 3. The bifurcation diagram confirmed this hypothesis, by showing that at r = 2, the first bifurcation arises, dans the population size starts to vary between two values around the equilibrium. As r increases we see more bifurcations phenomenons, until the value 3 is reached, where the population size reaches zero, and cannot persist anymore. 
+We have designed a simple method to identify and visualise at which intrinsic growth rate a population cannot persist, using the logistic growth model. By representing the varition of the population for diffrent values of *r*, we were able to see that the population starts to be unstable when *r* is above 2, and we saw that the population is almost instinct when *r* reaches 3. The bifurcation diagram confirmed this hypothesis, by showing that at r = 2, the first bifurcation arises, then the population size starts to vary between two values around the equilibrium. As r increases we see more bifurcations phenomenons, until the value 3 is reached, where the population size reaches zero, and cannot persist anymore. 
