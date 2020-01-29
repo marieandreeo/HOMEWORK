@@ -19,7 +19,7 @@ curved.
 
 |      | Title                                                    | Done | Difficulty | Ponderation |
 |:----:| -------------------------------------------------------- | ---- |:----------:| -----------:|
-| `01` | [Bifurcation diagram](/homework/bifurcation)             |      |     *      |           4 |
+| `01` | [Bifurcation diagram](/homework/bifurcation)             |  ✔️   |     *      |           4 |
 | `02` | [Logistic growth](/homework/logistic)                    |      |     *      |           4 |
 | `03` | [Logistic growth and competition](/homework/competition) |      |     *      |           6 |
 | `04` | [Stability](/homework/stability)                         |      |     **     |          10 |
