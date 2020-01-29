@@ -69,6 +69,7 @@ end
 #generation of graphic representation
 plot(pop_size, xaxis = "Number of generations", yaxis= "Population size", title = "Variation of the population size over time with a low r (r=0.7)", legend=:none, left_margin = 10mm, bottom_margin = 10mm)
 ```
+We see that the population size is stabilizing at 1, the value of the capacity support. 
 
 ```julia
 ## Logistic growth function with intermediate r
@@ -88,8 +89,9 @@ for i in 2:length(pop_size)
 end
 
 #generation of graphic representation
-plot(pop_size, xaxis = "Number of generations", yaxis= "Population size", title = "Variation of the population size over time with a intermediate r (r=2.0)", legend=:none, left_margin = 10mm, bottom_margin = 10mm)
+plot(pop_size, xaxis = "Number of generations", yaxis= "Population size", title = "Variation of the population size in time with intermediate r(r=2.0)", legend=:none, left_margin = 10mm, bottom_margin = 10mm)
 ```
+We see that for an intermadiate r, the population size osscillate between two values on both sides of the capacity support.
 
 ```julia
 ## Logistic growth function with high r
@@ -111,7 +113,7 @@ end
 #generation of graphic representation
 plot(pop_size, xaxis = "Number of generations", yaxis= "Population size", title = "Variation of the population size over time with a high r (r=3.0)", legend=:none, left_margin = 10mm, bottom_margin = 10mm)
 ```
-We see that at r=3.0 the population size varies between many values, and is almost reaching the extinction (%n(t)$=0).
+We see that at r=3.0 the population size varies between many values, and is almost reaching the extinction ($n(t)$=0).
 
 We then try to identify if the population reaches the equilibrium by representing $n(t+1)$ in function of $n(t)$, along with a linear function: 
 
