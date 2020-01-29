@@ -5,7 +5,7 @@ layout: page
 ---
 
 # Introduction
-<!--
+
 > Starting from the logistic model of growth with competition, you will (i)
 > propose an analysis to show how we can find a vaalue of the growth rate *r*
 > after which the population cannot persist (this will involve finding the
@@ -14,7 +14,6 @@ layout: page
 > that there is indeed a maximal growth rate after which the system becomes
 > unstable. Please note that you should not attempt to calculate this value by
 > hand, but you may attempt to guess it based on the results of the second step.
--->
 
 In nature, the population size of any species will vary in time depending on mutiple factors (predation, resources, competition, climatic events, etc.). Models were developped to represent those variations. Among them, the logistic growth allows to describe the population size of a specie considering inderectly different parameters that affects the rate of growth (ex: the amount of resources limited implying that there is less resources as the population grows, higher predation pressure, higher disease incidence). 
 
@@ -33,18 +32,21 @@ We will use the following recursion equation of the logistic growth model:
 
 $$n(t+1) = n(t) + r\times n(t)\times \left(1-\frac{n(t)}{K}\right)$$
 
-To make the system dimensionless, we will assume that K = 1. the recursion equation then becomes:
+Where *r* represent the intrinsect growth rate of the population and K represent the support capacity. To make the system dimensionless, we will assume that K = 1. The recursion equation then becomes:
 
 $$n(t+1) = n(t) + r\times n(t)\times \left(1-n(t)\right)$$
 
- 
 
 ## Model analysis
 
 This model is a discrete time model, involving that an equilibrium is reached every time $n(t+1) = n(t)$. The aim is to find a way to identify the value of the growth rate *r* where the population cannot persist, and to visually represent that in a bifurcation diagram.
 
+To achieve that, we will represent the variation of the population size over time for different values of *r* to give an idea of how the model reacts. We will then represent graphically $n(t+1)$ in function of $n(t)$ on the same graph as a linear function, for diffrent values of *r*, to identify if the population reaches the equillibrium. Finally, the bifurcation diagram of this model will help to identify the value of *r* where the population goes instinct. 
+
 ## Simulations
 ### Growth rate after which the population cannot persist
+
+To give us an insight of how the population size varies acording to the logistic growth model, we first represent the this variation for diffrent values of *r*:
 
 ```julia
 ## Logistic growth function with low r
@@ -61,7 +63,7 @@ for i in 2:length(pop_size)
     pop_size[i] = logistic_growth(pop_size[i-1], 0.7)
 end
 
-plot(pop_size)
+plot(pop_size, xaxis = "Number of generations", yaxis= "Population size", title = "Variation of the population size over time with a low r (r=0.7)", legend=:none)
 ```
 
 ```julia
@@ -79,9 +81,8 @@ for i in 2:length(pop_size)
     pop_size[i] = logistic_growth(pop_size[i-1], 1.8)
 end
 
-plot(pop_size)
+plot(pop_size, xaxis = "Number of generations", yaxis= "Population size", title = "Variation of the population size over time with a low r (r=1.8)", legend=:none)
 ```
-
 
 ```julia
 ## Logistic growth function with high r
@@ -98,9 +99,10 @@ for i in 2:length(pop_size)
     pop_size[i] = logistic_growth(pop_size[i-1], 3.0)
 end
 
-plot(pop_size)
+plot(pop_size, xaxis = "Number of generations", yaxis= "Population size", title = "Variation of the population size over time with a low r (r=3.0)", legend=:none)
 ```
 
+We then try to identify if the population reaches the equilibrium by representing $n(t+1)$ in function of $n(t)$, along with a linear function: 
 
 ```julia
 ## Reprensentation of n(t+1) in function of n(t)
@@ -226,4 +228,4 @@ bifurcation()
 
 ## Conclusions
 
-We have designed a simple method to identify and visualise at which intrinsic growth rate a population cannot persist, using the logistic growth model.  
+We have designed a simple method to identify and visualise at which intrinsic growth rate a population cannot persist, using the logistic growth model. By representing the varition of the population for diffrent values of *r*, we were able to see that the population starts to be unstable when *r* is above 2, and we saw that the population is almost instinct when *r* reaches 3. The bifurcation diagram confirmed this hypothesis, by showing that at r = 2, the first bifurcation arises, dans the population size starts to vary between two values around the equilibrium. As r increases we see more bifurcations phenomenons, until the value 3 is reached, where the population size reaches zero, and cannot persist anymore. 
