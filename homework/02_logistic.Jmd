@@ -77,11 +77,64 @@ We will now confirm those equilibrium for both models with graphical technics:
 
 ## Strong Allee effect
 
+```julia
+# Generating the strong Allee effect function taking the initial 
+# population size n0, different parameters p and a time vector t
+function allee_strong(n0, p, t)
+    n = n0
+    dn_dt_n_strong = n*p.r*((((n/p.A)-1))*(1-(n/p.K)))
+    return(dn_dt_n_strong)
+end
+
+# Defining the initial population sizes
+n0 = 10.0
+
+# Defining the time lapse t0 - t end
+t=(0., 500.)
+
+# Defining the parameters
+p = (r = 0.1, A = 50, K = 100)
+
+# Plotting the (dn/dt) in function of n(t) graph for the strong Allee effect
+dn_dt_n_strong_vec = zeros(Float64, p.K+5)
+n_vec = 0:p.K+4
+for i in 1:p.K+5
+    dn_dt_n_strong_vec[i] = allee_strong(n_vec[i], p, t)
+end
+plot(n_vec, dn_dt_n_strong_vec, title="Finding equilibrium for the strong Allee effect", xlabel="Population size (n)", ylabel="Population growth rate (dn/dt)", legend =false)
+# Adding horizontal line where dn/dt = 0
+hline!([0], ls=:dash)
+# Adding vertical line for the values of n where the equilibrum should be reach
+vline!([0, p.K, p.A])
+
+
+```
+
 
 
 ## Weak Allee effect
 
+```julia
+#Generating the weak Allee effec function
+function allee_weak(n0, p, t)
+    n=n0
+    dn_dt_n_weak = (p.r*(n^2)/p.K)*(1-(n/p.K))
+    return(dn_dt_n_weak)
+end
 
+# Plotting the (dn/dt) in function of n(t) graph for the weak Allee effect
+dn_dt_n_weak_vec = zeros(Float64, p.K+5)
+n_vec = 0:p.K+4
+for i in 1:p.K+5
+    dn_dt_n_weak_vec[i] = allee_weak(n_vec[i], p, t)
+end
+plot(n_vec, dn_dt_n_weak_vec, title="Finding equilibrium for the weak Allee effect", xlabel="Population size (n)", ylabel="Population growth rate (dn/dt)", legend =false)
+# Adding horizontal line where dn/dt = 0
+hline!([0], ls=:dash)
+# Affing vertical line for the values of n where the equilibrum should be reach
+vline!([0, p.K])
+
+```
 
 
 # Conclusions
