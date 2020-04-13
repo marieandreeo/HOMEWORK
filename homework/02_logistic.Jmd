@@ -60,7 +60,7 @@ To find the equilibrum of the strong Allee effect, we will search the values of 
 $$\frac{\text{d}}{\text{d}t}n = 0$$
 $$\hat n\times r\times \left(\frac{\hat n}{A}-1\right)\times \left(1-\frac{\hat n}{K}\right) = 0$$
 
-The first solution implies that $$\hat n_1 = 0$$. The second solution implies that $$\left(\frac{\hat n_2}{A}-1\right) = 0$$, giving $$\hat n_2 = A$$. The third solution implies that $$\left(1-\frac{\hat n_3}{K}\right)$$ $$\hat n_3 = K$$.
+The first solution implies that $$\hat n_1 = 0$$. The second solution implies that $$\left(\frac{\hat n_2}{A}-1\right) = 0$$, giving $$\hat n_2 = A$$. The third solution implies that $$\left(1-\frac{\hat n_3}{K}\right) = 0$$ giving $$\hat n_3 = K$$.
 
 ## Weak Allee effect
 
@@ -141,10 +141,35 @@ We can see here that the equilibrium is reached when dn/dt = 0 for each of the t
 We will now right an ordinary diffrential equation for the Strong Allee effect and then we will verify that diffrent populations starting on different sides of the equilibrium will end up where predicted. 
 
 ```julia
+# Defining the ordinary diffrential equation (ODE) problem for different initial population, sizes starting from all sides of equilibrium
+prob_strong1 = ODEProblem(allee_strong, 0.0, t, p)
+prob_strong2 = ODEProblem(allee_strong, 40.0, t, p)
+prob_strong3 = ODEProblem(allee_strong, 55.0, t, p)
+prob_strong4 = ODEProblem(allee_strong, 50.0, t, p)
+prob_strong5 = ODEProblem(allee_strong, 100.0, t, p)
+prob_strong6 = ODEProblem(allee_strong, 110.0, t, p)
+    
+# Resolving the ODE problems and plotting them
+solution_strong1 = solve(prob_strong1)
+plot(solution_strong1, label ="Initial population size: 0 ")
 
+solution_strong2 = solve(prob_strong2)
+plot!(solution_strong2, label ="Initial population size: 40 ")
+
+solution_strong3 = solve(prob_strong3)
+plot!(solution_strong3, label ="Initial population size: 55 ")
+
+solution_strong4 = solve(prob_strong4)
+plot!(solution_strong4, label ="Initial population size: 50 ")
+
+solution_strong5 = solve(prob_strong5)
+plot!(solution_strong5, label ="Initial population size: 100 ")
+
+solution_strong6 = solve(prob_strong6)
+plot!(solution_strong6, label ="Initial population size: 110 ", xlim=(0,200), xlabel = "Time", ylabel ="Population size (n)", title="Simulations for the strong Allee effect")
 
 ```
-
+We can see from the graph above that every simulation ends up where predicted, no matter on which side of the equilibrium it starts.
 
 
 # Conclusions
