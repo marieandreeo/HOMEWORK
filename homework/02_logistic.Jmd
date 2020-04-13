@@ -30,6 +30,24 @@ $$\frac{\text{d}}{\text{d}t}n = n\times \frac{r}{K}N^2\times \left(1-\frac{n}{K}
 
 ## Model analysis
 
+Let's find the equilibrium of this model through calculations. To achieve that, we will find when the 
+equilibrium of each model is equal to zero. 
+
+# Strong Allee effect
+The equation for the strong Allee effect is the following:
+$$\frac{\text{d}}{\text{d}t}n = n\times r\times \left(\frac{n}{A}-1\right)\times \left(1-\frac{n}{K}\right)$$
+To find the equilibrum we will search the values for which :
+$$\frac{\text{d}}{\text{d}t}n = 0$$
+$$\0 = n\times r\times \left(\frac{n}{A}-1\right)\times \left(1-\frac{n}{K}\right)$$
+
+
+# Weak Allee effect
+The equation for the strong Allee effect is the following:
+$$\frac{\text{d}}{\text{d}t}n = n\times \frac{r}{K}N^2\times \left(1-\frac{n}{K}\right)$$
+To find the equilibrum we will search the values for which :
+$$\frac{\text{d}}{\text{d}t}n = 0$$
+$$\0 = n\times \frac{r}{K}N^2\times \left(1-\frac{n}{K}\right)$$
+
 ## Simulations
 
 ## Conclusions
