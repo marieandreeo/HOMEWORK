@@ -48,6 +48,16 @@ To find the equilibrum we will search the values for which :
 $$\frac{\text{d}}{\text{d}t}n = 0$$
 $$n\times r\times \left(\frac{n}{A}-1\right)\times \left(1-\frac{n}{K}\right) = 0$$
 
+We see that there is a trivial solution to this equation where $r = 0$. We will then focus on the others solutions where. The first one implies that 
+
+$$\left(\frac{n}{A}-1\right) = 0$$
+$$n = A$$
+
+The second solution implies that
+
+$$\left(1-\frac{n}{K}\right)$$
+$$n = K$$
+
 
 ## Weak Allee effect
 
