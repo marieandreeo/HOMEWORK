@@ -13,41 +13,49 @@ layout: page
 > for the strong Allee effect, and verify that populations starting on different
 > sides of the equilibrium do end up where they are predicted.
 
-## Required packages
+
+# Required packages
 
 ```julia
 using Plots
 using DifferentialEquations
 ```
 
-## Model description and justification
+# Model description and justification
+
+Under the Allee effect, the growth of a population is reduced at low densities.
+This means that there is a positive correlation between the growth rate and the population size; implying that when the population size is growing, the growth rate is growing as well, whereas when the population size reduces, the growth rate is reduce as well.
+
+The strong Allee effect arise when there is a critical density of the population size. When this critical population size is reached, the growth rate per capita becomes negative. The derivative of the population size in function of time under the strong Allee effect is represented by the following equation:
 
 <!-- Use the two models for the strong and weak Allee effect, respectively -->
 
 $$\frac{\text{d}}{\text{d}t}n = n\times r\times \left(\frac{n}{A}-1\right)\times \left(1-\frac{n}{K}\right)$$
 
+The strong Allee effect arise when there is a critical density of the population size. When this critical population size is reached, the growth rate per capita becomes negative. The derivative of the population size in function of time under the weak Allee effect is represented by the following equation:
+
 $$\frac{\text{d}}{\text{d}t}n = n\times \frac{r}{K}N^2\times \left(1-\frac{n}{K}\right)$$
 
-## Model analysis
+# Model analysis
 
 Let's find the equilibrium of this model through calculations. To achieve that, we will find when the 
 equilibrium of each model is equal to zero. 
 
-# Strong Allee effect
-The equation for the strong Allee effect is the following:
-$$\frac{\text{d}}{\text{d}t}n = n\times r\times \left(\frac{n}{A}-1\right)\times \left(1-\frac{n}{K}\right)$$
+## Strong Allee effect
+
 To find the equilibrum we will search the values for which :
+
 $$\frac{\text{d}}{\text{d}t}n = 0$$
-$$\0 = n\times r\times \left(\frac{n}{A}-1\right)\times \left(1-\frac{n}{K}\right)$$
+$$n\times r\times \left(\frac{n}{A}-1\right)\times \left(1-\frac{n}{K}\right) = 0$$
 
 
-# Weak Allee effect
-The equation for the strong Allee effect is the following:
-$$\frac{\text{d}}{\text{d}t}n = n\times \frac{r}{K}N^2\times \left(1-\frac{n}{K}\right)$$
+## Weak Allee effect
+
 To find the equilibrum we will search the values for which :
+
 $$\frac{\text{d}}{\text{d}t}n = 0$$
-$$\0 = n\times \frac{r}{K}N^2\times \left(1-\frac{n}{K}\right)$$
+$$n\times \frac{r}{K}N^2\times \left(1-\frac{n}{K}\right)$$
 
-## Simulations
+# Simulations
 
-## Conclusions
+# Conclusions
