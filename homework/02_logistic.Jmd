@@ -51,31 +51,31 @@ $$\frac{\text{d}}{\text{d}t}n = \frac{r}{K}n^2\times \left(1-\frac{n}{K}\right)$
  
 # Model analysis
 
-Let's find the equilibrium of this model through calculations. Knowing that this model is in continuous time, to find the equilibrium we will calculate the value of the population size $hat\n$ for which the derivative of the population size in time is equal to zero.
+Let's find the equilibrium of this model through calculations. Knowing that this model is in continuous time, to find the equilibrium we will calculate the value of the population size $\hat n$ for which the derivative of the population size in time is equal to zero.
 
 ## Strong Allee effect
 
 To find the equilibrum of the strong Allee effect, we will search the values of $n$ for which :
 
 $$\frac{\text{d}}{\text{d}t}n = 0$$
-$$hat\n\times r\times \left(\frac{hat\n}{A}-1\right)\times \left(1-\frac{hat\n}{K}\right) = 0$$
+$$\hat n\times r\times \left(\frac{\hat n}{A}-1\right)\times \left(1-\frac{\hat n}{K}\right) = 0$$
 
-The first solution implies that $$hat\n1 = 0$$. The second solution implies that $$\left(\frac{hat\n2}{A}-1\right) = 0$$, giving $$hat\n2 = A$$. The third solution implies that $$\left(1-\frac{hat\n3}{K}\right)$$ $$hat\n3 = K$$.
+The first solution implies that $$\hat n_1 = 0$$. The second solution implies that $$\left(\frac{\hat n_2}{A}-1\right) = 0$$, giving $$\hat n_2 = A$$. The third solution implies that $$\left(1-\frac{\hat n_3}{K}\right)$$ $$\hat n_3 = K$$.
 
 ## Weak Allee effect
 
 To find the equilibrum of the weak Allee effect, we will search the values for which :
 
 $$\frac{\text{d}}{\text{d}t}n = 0$$
-$$\frac{r}{K}hat\n^2\times \left(1-\frac{hat\n}{K}\right)$$
+$$\frac{r}{K}\hat n^2\times \left(1-\frac{\hat n}{K}\right)$$
 
-The first solution implies that $$hat\n1 = 0$$. The second solution implies that $$\left(1-\frac{hat\n2}{K}\right)$$ $$hat\n2 = K$$.
+The first solution implies that $$\hat n_1 = 0$$. The second solution implies that $$\left(1-\frac{\hat n_2}{K}\right)$$ $$\hat n_2 = K$$.
 
 # Simulations
 
 We will now confirm those equilibrium for both models with graphical technics:
 
-## Strong Allee effect
+## Strong Allee effect equilibrium
 
 ```julia
 # Generating the strong Allee effect function taking the initial 
@@ -109,10 +109,9 @@ vline!([0, p.K, p.A])
 
 
 ```
+We can see here that the equilibrium is reached when dn/dt = 0 for each of the three values that were determined earlier ($\hat n_1 = 0, \hat n_2 = A, \hat n_3 = K$).
 
-
-
-## Weak Allee effect
+## Weak Allee effect equilibrium
 
 ```julia
 #Generating the weak Allee effec function
@@ -135,6 +134,17 @@ hline!([0], ls=:dash)
 vline!([0, p.K])
 
 ```
+We can see here that the equilibrium is reached when dn/dt = 0 for each of the two values that were determined earlier ($\hat n_1 = 0, \hat n_2 = K$).
+
+## ODE model for Strong Allee effect
+
+We will now right an ordinary diffrential equation for the Strong Allee effect and then we will verify that diffrent populations starting on different sides of the equilibrium will end up where predicted. 
+
+```julia
+
+
+```
+
 
 
 # Conclusions
