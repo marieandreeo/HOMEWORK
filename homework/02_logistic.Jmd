@@ -5,14 +5,23 @@ layout: page
 ---
 
 # Introduction
-
+<! --
 > Under the Allee effect, the growth of a population is reduced at low
 > densities. Using the strong and the weak Allee effect models as indicated
 > below, find the equilibrium through calculations, then confirm these using a
 > graphical technique. Finally, write an ordinary differential equations model
 > for the strong Allee effect, and verify that populations starting on different
 > sides of the equilibrium do end up where they are predicted.
+--!>
 
+Under the Allee effect, the growth of a population is reduced at low densities.
+This means that there is a positive correlation between the growth rate and the population size; implying that when the population size is growing, the growth rate is growing as well, whereas when the population size reduces, the growth rate is reduce as well. This phenomenon can be present in certain species and normally for small effectives. 
+
+The strong Allee effect arise when there is a critical density of the population size. When this critical population size is reached, the growth rate per capita becomes negative. 
+
+The weak Allee effect arise when there is no critical density of the population size. Assuming this, the growth rate per capita is always positive. 
+
+In this work we will analyse the equilibriums of both Allee effects and we will then verify with a graphical representation that the population size starting from both sides of the equilibrium will end up where it is predicted. 
 
 # Required packages
 
@@ -23,56 +32,56 @@ using DifferentialEquations
 
 # Model description and justification
 
-Under the Allee effect, the growth of a population is reduced at low densities.
-This means that there is a positive correlation between the growth rate and the population size; implying that when the population size is growing, the growth rate is growing as well, whereas when the population size reduces, the growth rate is reduce as well.
+We will first start the implementation of the Allee effect model with the logistic growth model of population size in continuous time, where the population growth rate is represented as:
 
-The strong Allee effect arise when there is a critical density of the population size. When this critical population size is reached, the growth rate per capita becomes negative. The derivative of the population size in function of time under the strong Allee effect is represented by the following equation:
+$$\frac{\text{d}}{\text{d}t}n = n\times r\times \left(1-\frac{n}{K}\right)$$
+
+In this equation, $n$ represents the population size at time $t$, $r$ represents the intrinsec growth rate of the population and $K$ represents the support capacity of the population. To obtain the strong Allee effect model we then multiply this equation by $\left(\frac{n}{A}-1\right)$ to obtain the following equation:
 
 <!-- Use the two models for the strong and weak Allee effect, respectively -->
 
 $$\frac{\text{d}}{\text{d}t}n = n\times r\times \left(\frac{n}{A}-1\right)\times \left(1-\frac{n}{K}\right)$$
 
-The weak Allee effect arise when there is no critical density of the population size. Assuming this, the growth rate per capita is always positive. The derivative of the population size in function of time under the weak Allee effect is represented by the following equation:
+where $A$ represents the critical size of the population.
 
-$$\frac{\text{d}}{\text{d}t}n = n\times \frac{r}{K}N^2\times \left(1-\frac{n}{K}\right)$$
+To obtain the weak Allee effect model, we multiply the logistic equation by $\left(\frac{n}{K}\right)$, to obtain the following equation:
 
-In thoses equations, $r$ represent the intrinsic growth rate of the population, $A$ represent the critical size of the population and $K$ represents the support capacity of the population. 
+$$\frac{\text{d}}{\text{d}t}n = \frac{r}{K}n^2\times \left(1-\frac{n}{K}\right)$$
 
+ 
 # Model analysis
 
-Let's find the equilibrium of this model through calculations. To achieve that, we will find when the 
-equilibrium of each model is equal to zero. 
+Let's find the equilibrium of this model through calculations. Knowing that this model is in continuous time, to find the equilibrium we will calculate the value of the population size $hat\n$ for which the derivative of the population size in time is equal to zero.
 
 ## Strong Allee effect
 
-To find the equilibrum we will search the values for which :
+To find the equilibrum of the strong Allee effect, we will search the values of $n$ for which :
 
 $$\frac{\text{d}}{\text{d}t}n = 0$$
-$$n\times r\times \left(\frac{n}{A}-1\right)\times \left(1-\frac{n}{K}\right) = 0$$
+$$hat\n\times r\times \left(\frac{hat\n}{A}-1\right)\times \left(1-\frac{hat\n}{K}\right) = 0$$
 
-We see that there is a trivial solution to this equation where $r = 0$. We will then focus on the others solutions where. The first one implies that 
+The first solution implies that $$hat\n1 = 0$$. The second solution implies that $$\left(\frac{hat\n2}{A}-1\right) = 0$$, giving $$hat\n2 = A$$. The third solution implies that $$\left(1-\frac{hat\n3}{K}\right)$$ $$hat\n3 = K$$.
 
-$$\left(\frac{n}{A}-1\right) = 0$$
-$$n = A$$
+## Weak Allee effect
 
-The second solution implies that
+To find the equilibrum of the weak Allee effect, we will search the values for which :
 
-$$\left(1-\frac{n}{K}\right)$$
-$$n = K$$
+$$\frac{\text{d}}{\text{d}t}n = 0$$
+$$\frac{r}{K}hat\n^2\times \left(1-\frac{hat\n}{K}\right)$$
+
+The first solution implies that $$hat\n1 = 0$$. The second solution implies that $$\left(1-\frac{hat\n2}{K}\right)$$ $$hat\n2 = K$$.
+
+# Simulations
+
+We will now confirm those equilibrium for both models with graphical technics:
+
+## Strong Allee effect
+
 
 
 ## Weak Allee effect
 
-To find the equilibrum we will search the values for which :
 
-$$\frac{\text{d}}{\text{d}t}n = 0$$
-$$n\times \frac{r}{K}N^2\times \left(1-\frac{n}{K}\right)$$
-
-
-
-# Simulations
-
-We will now confirm those equilibrium with graphical technics. 
 
 
 # Conclusions
