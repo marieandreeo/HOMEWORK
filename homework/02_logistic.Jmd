@@ -32,9 +32,11 @@ The strong Allee effect arise when there is a critical density of the population
 
 $$\frac{\text{d}}{\text{d}t}n = n\times r\times \left(\frac{n}{A}-1\right)\times \left(1-\frac{n}{K}\right)$$
 
-The strong Allee effect arise when there is a critical density of the population size. When this critical population size is reached, the growth rate per capita becomes negative. The derivative of the population size in function of time under the weak Allee effect is represented by the following equation:
+The weak Allee effect arise when there is no critical density of the population size. Assuming this, the growth rate per capita is always positive. The derivative of the population size in function of time under the weak Allee effect is represented by the following equation:
 
 $$\frac{\text{d}}{\text{d}t}n = n\times \frac{r}{K}N^2\times \left(1-\frac{n}{K}\right)$$
+
+In thoses equations, $r$ represent the intrinsic growth rate of the population, $A$ represent the critical size of the population and $K$ represents the support capacity of the population. 
 
 # Model analysis
 
@@ -66,6 +68,11 @@ To find the equilibrum we will search the values for which :
 $$\frac{\text{d}}{\text{d}t}n = 0$$
 $$n\times \frac{r}{K}N^2\times \left(1-\frac{n}{K}\right)$$
 
+
+
 # Simulations
+
+We will now confirm those equilibrium with graphical technics. 
+
 
 # Conclusions
