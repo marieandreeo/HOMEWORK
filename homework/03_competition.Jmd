@@ -1,5 +1,5 @@
 ---
-title: Logistic growth with Allee effects
+title: Logistic growth with competition
 permalink: competition/
 layout: page
 ---
@@ -28,9 +28,49 @@ The logistic model of growth for two populations ($x$ and $y$) with both intra a
 
 $$\frac{\text{d}x}{\text{d}t} = R\times x - A\times x^2 - B\times x\times y$$
 
+$$\frac{\text{d}y}{\text{d}t} = r\times x - a\times y^2 - b\times x\times y$$
+
+where $\frac{\text{d}x}{\text{d}t}$ and $\frac{\text{d}y}{\text{d}t}$ represent the growth rate of the populations, where $R$ and $r$ represent the intrinsec growth rate for the $x$ and $y$ populations respectively. The parameters $A$ and $B$ are respectively the intraspecif and interspesific coefficients for the $x$ population. The parameters $a$ and $b$ are the the intraspecific and interspecific coefficients for the $y$ population. 
 
 # Model analysis
 
+We will first find the expression of the zero-growth isoclines for this model. To achieve this, we have to find the values of both population sizes at equilibrium ($\hat x$ and $\hat y$) for which there is no more variation of size (i.e $\frac{\text{d}x}{\text{d}t} = 0$ and $\frac{\text{d}y}{\text{d}t} = 0$):
+
+$$\frac{\text{d}x}{\text{d}t} = R\times x - A\times x^2 - B\times x\times y = 0$$
+
+$$\frac{\text{d}y}{\text{d}t} = r\times x - a\times y^2 - b\times x\times y = 0$$
+
+We can re-express those equations to find more easily the equilibriums :
+
+$$\frac{\text{d}x}{\text{d}t} = x\times [R - A\times x - B\times y] = 0$$
+
+$$\frac{\text{d}y}{\text{d}t} = y\times [r - a\times y - b\times x] = 0$$
+
+The first equilibrium arise with $\hat x_1 = 0$ and $\hat y_1 = 0$.
+
+If we then consider that the $y$ population goes extinct:
+
+$$\frac{\text{d}x}{\text{d}t} = x\times [R - A\times x] = 0$$
+
+we can find the second equilibrium at $\hat x_2 = \frac{R}{A}$ and $\hat y_2 = 0$.
+
+If we then consider that the $x$ population goes extinct:
+
+$$\frac{\text{d}y}{\text{d}t} = y\times [r - a\times y] = 0$$
+
+we can find the third equilibrium at $\hat x_3 = 0$ and $\hat y_2 = \frac{r}{a}$.
+
+Finally
+
+
+
+
+
+We will now find when the equilibrium with 1 and 2 species are feasible. 
+
+
 # Simulations
+
+We will now simulate this model as an ordinary differential equations problem, under four combinations of paramters. 
 
 # Conclusions
