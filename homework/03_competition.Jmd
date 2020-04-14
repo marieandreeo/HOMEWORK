@@ -34,6 +34,8 @@ where $\frac{\text{d}x}{\text{d}t}$ and $\frac{\text{d}y}{\text{d}t}$ represent 
 
 # Model analysis
 
+## Equilibriums
+
 We will first find the expression of the zero-growth isoclines for this model. To achieve this, we have to find the values of both population sizes at equilibrium ($\hat x$ and $\hat y$) for which there is no more variation of size (i.e $\frac{\text{d}x}{\text{d}t} = 0$ and $\frac{\text{d}y}{\text{d}t} = 0$):
 
 $$\frac{\text{d}x}{\text{d}t} = R\times x - A\times x^2 - B\times x\times y = 0$$
@@ -46,21 +48,21 @@ $$\frac{\text{d}x}{\text{d}t} = x\times [R - A\times x - B\times y] = 0$$
 
 $$\frac{\text{d}y}{\text{d}t} = y\times [r - a\times y - b\times x] = 0$$
 
-The first equilibrium arise with $\hat x_1 = 0$ and $\hat y_1 = 0$.
+The \textbf{first equilibrium} arise with $\hat x_1 = 0$ and $\hat y_1 = 0$.
 
 If we then consider that the $y$ population goes extinct($y=0$):
 
 $$\frac{\text{d}x}{\text{d}t} = x\times [R - A\times x] = 0$$
 $$\frac{\text{d}x}{\text{d}t} = [R - A\times x] = 0$$
 
-we can find the second equilibrium at $\hat x_2 = \frac{R}{A}$ and $\hat y_2 = 0$.
+we can find the \textbf{second equilibrium} at $\hat x_2 = \frac{R}{A}$ and $\hat y_2 = 0$.
 
 If we then consider that the $x$ population goes extinct ($x=0$):
 
 $$\frac{\text{d}y}{\text{d}t} = y\times [r - a\times y] = 0$$
 $$\frac{\text{d}y}{\text{d}t} = [r - a\times y] = 0$$
 
-we can find the third equilibrium at $\hat x_3 = 0$ and $\hat y_2 = \frac{r}{a}$.
+we can find the \textbf{third equilibrium} at $\hat x_3 = 0$ and $\hat y_2 = \frac{r}{a}$.
 
 Finally, we can find the last equilibrium with the following:
 
@@ -74,10 +76,22 @@ If we replace the expression of $x$ in the second equation we obtain:
 
 $$[r - a\times y - b\times \frac{R-B\times y}{A}] = 0$$,
 
-giving $\hat x_4 = \frac{r\times B - R\times a}{B\times b - A\times a}$ and $\hat y_4 = \frac{R\times b - r\times A}{B\times b - A\times a}$.
+giving as the \textbf{fourth equilibrium} $\hat x_4 = \frac{r\times B - R\times a}{B\times b - A\times a}$ and $\hat y_4 = \frac{R\times b - r\times A}{B\times b - A\times a}$.
 
+## Equilibrium feasibility analysis
 
-We will now find when the equilibrium with 1 and 2 species are feasible. 
+We will now find when the equilibrium with 1 and 2 species are feasible. For the equilibriums to be feasible, their values have to be positive (i.e greater or equal to zero).
+
+The \textbf{first equilibrium} ($\hat x_1 = 0$ and $\hat y_1 = 0$) is always feasible since its values are always equals to zero.
+
+The \textbf{second equilibrium} ($\hat x_2 = \frac{R}{A}$ and $\hat y_2 = 0$) is feasible if
+
+$$\frac{R}{A} \geq 0$$
+
+The \textbf{third equilibrium}
+
+The \textbf{fourth equilibrium}
+
 
 
 # Simulations
