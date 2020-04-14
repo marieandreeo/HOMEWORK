@@ -15,17 +15,22 @@ layout: page
 > using a global carrying capacity for the population, or using four different
 > competition terms (for intra and inter-specific competition).
 
-## Required packages
+# Required packages
 
 ```julia
 using Plots
 using DifferentialEquations
 ```
 
-## Model description and justification
+# Model description and justification
 
-## Model analysis
+The logistic model of growth for two populations ($x$ and $y$) with both intra and inter-specific competition can be expressed with the following equations:
 
-## Simulations
+$$\frac{\text{d}x}{\text{d}t} = R\times x - A\times x^2 - B\times x\times y$$
 
-## Conclusions
+
+# Model analysis
+
+# Simulations
+
+# Conclusions
