@@ -84,13 +84,11 @@ We will now find when the equilibrium with 1 and 2 species are feasible. For the
 
 The \textbf{first equilibrium} ($\hat x_1 = 0$ and $\hat y_1 = 0$) is always feasible since its values are always equals to zero.
 
-The \textbf{second equilibrium} ($\hat x_2 = \frac{R}{A}$ and $\hat y_2 = 0$) is feasible if
+The \textbf{second equilibrium} ($\hat x_2 = \frac{R}{A}$ and $\hat y_2 = 0$) is feasible if $\frac{R}{A} \geq 0$, which is always true since $R$ and $A$ are coefficients that are always positive. 
 
-$$\frac{R}{A} \geq 0$$
+The \textbf{third equilibrium} (\hat x_3 = 0$ and $\hat y_2 = \frac{r}{a}$) is feasible if \frac{r}{a} \geq 0$, which is always true since $r$ and $a$ are always positive. 
 
-The \textbf{third equilibrium}
-
-The \textbf{fourth equilibrium}
+The \textbf{fourth equilibrium} ($\hat x_4 = \frac{r\times B - R\times a}{B\times b - A\times a}$ and $\hat y_4 = \frac{R\times b - r\times A}{B\times b - A\times a}$) is feasible if 
 
 
 
@@ -99,17 +97,74 @@ The \textbf{fourth equilibrium}
 We will now simulate this model as an ordinary differential equations problem, under four combinations of paramters. 
 
 ```julia
-
+# Problem definition
+function competition(u0, p, t)
+    x, y = u0 # Initial populations sizes
+    dx = p.R*x - p.A*x*x - p.B*x*y # variation of the x population
+    dy = p.r*y - p.a*y*y - p.b*x*y # variation of the y population
+    return [dx, dy]
+end
 ```
 
 
 ```julia
+# Finding when equilibrium with both species is possible
+# Initial population sizes 
+u0 = [0.1, 0.1]
 
+# t0 - t end
+t = (0., 100.)
+
+function eq_2_sp(p)
+    k = p.B*p.b-p.A*p.a
+    x̂ = (p.B*p.r - p.R*p.a)/k 
+    ŷ = (p.b*p.R - p.r*p.A)/k 
+    return (x̂, ŷ)
+end
+
+eq_2_sp_exists(p) = all(eq_2_sp(p).>1e-3)
+
+# Grid for the search 
+possible_values = 0.9:0.05:1.1
+
+# Empty array for parameter values 
+p_eq = []
+
+# Grid search
+for a in possible_values, A in possible_values
+    for b in possible_values, B in possible_values
+        p = (r=1.0, R=1.0, a=a, A=A, b=b, B=B)
+        push!(p_eq, p) 
+    end
+end
+
+# Keep only parameters for which the 2sp equilibrium exists 
+filter!(eq_2_sp_exists, p_eq)
 ```
 
 
 ```julia
+# simulation of 4 combinaisons of parameters
+solution_graph = []
+for z in 1:4
+    # Parameters
+    p = rand(p_eq)
 
+    # Definition of problem
+    prob = ODEProblem(competition, u0, t, p)
+
+    # Resolution of problem
+    solution = solve(prob)
+    push!(solution_graph, solution)
+
+end
+
+    # Plot
+p1 = plot(solution_graph[1])
+p2 = plot(solution_graph[2])
+p3 = plot(solution_graph[3])
+p4 = plot(solution_graph[4])
+plot(p1,p2,p3,p4,layout=(2,2),legend=false)
 ```
 
 # Conclusions
