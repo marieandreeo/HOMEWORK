@@ -28,7 +28,7 @@ The logistic model of growth for two populations ($x$ and $y$) with both intra a
 
 $$\frac{\text{d}x}{\text{d}t} = R\times x - A\times x^2 - B\times x\times y$$
 
-$$\frac{\text{d}y}{\text{d}t} = r\times x - a\times y^2 - b\times x\times y$$
+$$\frac{\text{d}y}{\text{d}t} = r\times y - a\times y^2 - b\times x\times y$$
 
 where $\frac{\text{d}x}{\text{d}t}$ and $\frac{\text{d}y}{\text{d}t}$ represent the growth rate of the populations, where $R$ and $r$ represent the intrinsec growth rate for the $x$ and $y$ populations respectively. The parameters $A$ and $B$ are respectively the intraspecif and interspesific coefficients for the $x$ population. The parameters $a$ and $b$ are the the intraspecific and interspecific coefficients for the $y$ population. 
 
@@ -38,7 +38,7 @@ We will first find the expression of the zero-growth isoclines for this model. T
 
 $$\frac{\text{d}x}{\text{d}t} = R\times x - A\times x^2 - B\times x\times y = 0$$
 
-$$\frac{\text{d}y}{\text{d}t} = r\times x - a\times y^2 - b\times x\times y = 0$$
+$$\frac{\text{d}y}{\text{d}t} = r\times y - a\times y^2 - b\times x\times y = 0$$
 
 We can re-express those equations to find more easily the equilibriums :
 
@@ -48,22 +48,33 @@ $$\frac{\text{d}y}{\text{d}t} = y\times [r - a\times y - b\times x] = 0$$
 
 The first equilibrium arise with $\hat x_1 = 0$ and $\hat y_1 = 0$.
 
-If we then consider that the $y$ population goes extinct:
+If we then consider that the $y$ population goes extinct($y=0$):
 
 $$\frac{\text{d}x}{\text{d}t} = x\times [R - A\times x] = 0$$
+$$\frac{\text{d}x}{\text{d}t} = [R - A\times x] = 0$$
 
 we can find the second equilibrium at $\hat x_2 = \frac{R}{A}$ and $\hat y_2 = 0$.
 
-If we then consider that the $x$ population goes extinct:
+If we then consider that the $x$ population goes extinct ($x=0$):
 
 $$\frac{\text{d}y}{\text{d}t} = y\times [r - a\times y] = 0$$
+$$\frac{\text{d}y}{\text{d}t} = [r - a\times y] = 0$$
 
 we can find the third equilibrium at $\hat x_3 = 0$ and $\hat y_2 = \frac{r}{a}$.
 
-Finally
+Finally, we can find the last equilibrium with the following:
 
+$$[R - A\times x - B\times y] = 0$$ and $$[r - a\times y - b\times x] = 0$$
 
+If we isolte $x$ from the first equation we obtain:
 
+$$x = [\frac{R-B\times y}{A}]$$
+
+If we replace the expression of $x$ in the second equation we obtain:
+
+$$[r - a\times y - b\times \frac{R-B\times y}{A}] = 0$$,
+
+giving $\hat x_4 = \frac{r\times B - R\times a}{B\times b - A\times a}$ and $\hat y_4 = \frac{R\times b - r\times A}{B\times b - A\times a}$.
 
 
 We will now find when the equilibrium with 1 and 2 species are feasible. 
@@ -72,5 +83,19 @@ We will now find when the equilibrium with 1 and 2 species are feasible.
 # Simulations
 
 We will now simulate this model as an ordinary differential equations problem, under four combinations of paramters. 
+
+```julia
+
+```
+
+
+```julia
+
+```
+
+
+```julia
+
+```
 
 # Conclusions
