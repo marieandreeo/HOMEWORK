@@ -5,13 +5,11 @@ layout: page
 ---
 
 # Introduction
+
+
+
 <! --
-> Under the Allee effect, the growth of a population is reduced at low
-> densities. Using the strong and the weak Allee effect models as indicated
-> below, find the equilibrium through calculations, then confirm these using a
-> graphical technique. Finally, write an ordinary differential equations model
-> for the strong Allee effect, and verify that populations starting on different
-> sides of the equilibrium do end up where they are predicted.
+Under the Allee effect, the growth of a population is reduced at low densities. Using the strong and the weak Allee effect models as indicated below, find the equilibrium through calculations, then confirm these using a graphical technique. Finally, write an ordinary differential equations model for the strong Allee effect, and verify that populations starting on different sides of the equilibrium do end up where they are predicted.
 -->
 
 Under the Allee effect, the growth of a population is reduced at low densities.
@@ -187,3 +185,7 @@ We can see from the graph above that every simulation ends up where predicted, n
 
 
 # Conclusions
+
+We have designed a model for both strong and weak Allee effect. In the strong Allee effect, we identified three equilibriums, corresponding to 0, the critical size $A$ and the support capacity $K$. For the population to grow, we have identified that the population size must be situated between $A$ and $K$, otherwise, it diminishes, except for the equilibrium values. For the weak Allee effect, we identified two equilibriums, corresponding to 0 and the support capacity $K$. For the population to grow, we have identified that the population size must be situated between $0$ and $K$. In the final section, we showed that regardless of the initial population size, the system always leads to the equilibrium. 
+
+
