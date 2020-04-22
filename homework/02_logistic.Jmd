@@ -78,6 +78,8 @@ We will now confirm those equilibrium for both models with graphical technics:
 
 ## Strong Allee effect equilibrium
 
+Starting with the strong Allee effect:
+
 ```julia
 # Generating the strong Allee effect function taking the initial 
 # population size n0, different parameters p and a time vector t
@@ -93,84 +95,95 @@ n0 = 10.0
 # Defining the time lapse t0 - t end
 t=(0., 500.)
 
-# Defining the parameters
+# Defining the parameters (growth rate, critical size population and support capacity)
 p = (r = 0.1, A = 50, K = 100)
 
-# Plotting the (dn/dt) in function of n(t) graph for the strong Allee effect
+# Generating the varations of the population for different sizes of population varying from 0 to above the support capacity
 dn_dt_n_strong_vec = zeros(Float64, p.K+5)
 n_vec = 0:p.K+4
 for i in 1:p.K+5
     dn_dt_n_strong_vec[i] = allee_strong(n_vec[i], p, t)
 end
+
+# Plotting the (dn/dt) in function of n(t) graph for the strong Allee effect
 plot(n_vec, dn_dt_n_strong_vec, title="Finding equilibrium for the strong Allee effect", xlabel="Population size (n)", ylabel="Population growth rate (dn/dt)", legend =false, left_margin = 10mm, bottom_margin = 10mm)
+
 # Adding horizontal line where dn/dt = 0
 hline!([0], ls=:dash)
+
 # Adding vertical line for the values of n where the equilibrum should be reach
 vline!([0, p.K, p.A])
 
 
 ```
-The green vertical lines were placed where the equilibriums were attended to be reached. Knowing that this situation arise when dn/dt = 0, we can graphically see that the three values that were determined earlier ($\hat n_1 = 0, \hat n_2 = A, \hat n_3 = K$) are effectively equilibriums.
+The green vertical lines were placed where the equilibriums were attended to be reached. Knowing that this situation arise when dn/dt = 0 (dashed line), we can graphically see that the three values that were determined earlier ($\hat n_1 = 0, \hat n_2 = A, \hat n_3 = K$) are effectively equilibriums. We also can graphically see that for a size of population varying between 0 and the critical size $A$, the population is diminishing (i.e $\frac{\text{d}}{\text{d}t}n \leq 0$), whereas the population size is growing (i.e i.e $\frac{\text{d}}{\text{d}t}n \\geq 0$) it is bewtween de critical size $A$ and the support capacity $K$.
 
 ## Weak Allee effect equilibrium
 
+Now, for the weak Allee effect:
+
 ```julia
-#Generating the weak Allee effec function
+# Generating the strong Allee effect function taking the initial 
+# population size n0, different parameters p and a time vector t
 function allee_weak(n0, p, t)
     n=n0
     dn_dt_n_weak = (p.r*(n^2)/p.K)*(1-(n/p.K))
     return(dn_dt_n_weak)
 end
 
-# Plotting the (dn/dt) in function of n(t) graph for the weak Allee effect
+# Generating the varations of the population for different sizes of population varying from 0 to above the support capacity
 dn_dt_n_weak_vec = zeros(Float64, p.K+5)
 n_vec = 0:p.K+4
 for i in 1:p.K+5
     dn_dt_n_weak_vec[i] = allee_weak(n_vec[i], p, t)
 end
-plot(n_vec, dn_dt_n_weak_vec, title="Finding equilibrium for the weak Allee effect", xlabel="Population size (n)", ylabel="Population growth rate (dn/dt)", legend =false)
+
+# Plotting the (dn/dt) in function of n(t) graph for the weak Allee effect
+plot(n_vec, dn_dt_n_weak_vec, title="Finding equilibrium for the weak Allee effect", xlabel="Population size (n)", ylabel="Population growth rate (dn/dt)", legend =false, left_margin = 10mm, bottom_margin = 10mm)
+
 # Adding horizontal line where dn/dt = 0
 hline!([0], ls=:dash)
+
 # Affing vertical line for the values of n where the equilibrum should be reach
 vline!([0, p.K])
 
 ```
-We can see here that the equilibrium is reached when dn/dt = 0 for each of the two values that were determined earlier ($\hat n_1 = 0, \hat n_2 = K$).
+Again, the green vertical lines were placed where the equilibriums were attended to be reached. Knowing that this situation arise when dn/dt = 0 (dashed line), we can graphically see that the equilibriums are reached when dn/dt = 0 for each of the two values that were determined earlier ($\hat n_1 = 0, \hat n_2 = K$). We can also graphically see that there is no critical population size under which the population is downsizing. For a size of population varying between 0 and the support capacity $K$, the population is growing (i.e i.e $\frac{\text{d}}{\text{d}t}n \\geq 0$), and will diminish when the support capacity is reached and surpass. 
 
 ## ODE model for Strong Allee effect
 
-We will now right an ordinary diffrential equation for the Strong Allee effect and then we will verify that diffrent populations starting on different sides of the equilibrium will end up where predicted. 
+We will now right an ordinary diffrential equation for the Strong Allee effect and then we will verify that different populations starting on different sides of the equilibrium will end up where predicted. 
 
 ```julia
-# Defining the ordinary diffrential equation (ODE) problem for different initial population, sizes starting from all sides of equilibrium
-prob_strong1 = ODEProblem(allee_strong, 0.0, t, p)
-prob_strong2 = ODEProblem(allee_strong, 40.0, t, p)
-prob_strong3 = ODEProblem(allee_strong, 55.0, t, p)
-prob_strong4 = ODEProblem(allee_strong, 50.0, t, p)
-prob_strong5 = ODEProblem(allee_strong, 100.0, t, p)
-prob_strong6 = ODEProblem(allee_strong, 110.0, t, p)
+# Defining the ordinary diffrential equation (ODE) problems for different initial population sizes, starting from all sides of equilibrium
+prob_strong1 = ODEProblem(allee_strong, 0.0, t, p) #n0 corresponding to the first equilibrium
+prob_strong2 = ODEProblem(allee_strong, 40.0, t, p) #n0 starting between the first and second equilibrium
+prob_strong3 = ODEProblem(allee_strong, 55.0, t, p) #n0 starting between the second and third equilibrium
+prob_strong4 = ODEProblem(allee_strong, 50.0, t, p)#n0 corresponding to the second equilibrium
+prob_strong5 = ODEProblem(allee_strong, 100.0, t, p) #n0 corresponding to the third equilibrium
+prob_strong6 = ODEProblem(allee_strong, 110.0, t, p) #n0 starting above the last equilibrium
     
-# Resolving the ODE problems and plotting them
+# Resolving the ODE problems and plotting them for each cases
 solution_strong1 = solve(prob_strong1)
-plot(solution_strong1, label ="Initial population size: 0 ")
+plot(solution_strong1, label ="Initial population size: 0 ", c=:blue)
 
 solution_strong2 = solve(prob_strong2)
-plot!(solution_strong2, label ="Initial population size: 40 ")
+plot!(solution_strong2, label ="Initial population size: 40 ", c=:orange)
 
 solution_strong3 = solve(prob_strong3)
-plot!(solution_strong3, label ="Initial population size: 55 ")
+plot!(solution_strong3, label ="Initial population size: 55 ", c=:purple)
 
 solution_strong4 = solve(prob_strong4)
-plot!(solution_strong4, label ="Initial population size: 50 ")
+plot!(solution_strong4, label ="Initial population size: 50 ", c=:green)
 
 solution_strong5 = solve(prob_strong5)
-plot!(solution_strong5, label ="Initial population size: 100 ")
+plot!(solution_strong5, label ="Initial population size: 100 ", c=:red)
 
 solution_strong6 = solve(prob_strong6)
-plot!(solution_strong6, label ="Initial population size: 110 ", xlim=(0,200), xlabel = "Time", ylabel ="Population size (n)", title="Simulations for the strong Allee effect")
+plot!(solution_strong6, label ="Initial population size: 110 ", xlim=(0,200), c=:yellow, xlabel = "Time", ylabel ="Population size (n)", title="Simulations for the strong Allee effect", left_margin = 10mm, bottom_margin = 10mm)
 
 ```
-We can see from the graph above that every simulation ends up where predicted, no matter on which side of the equilibrium it starts.
+We can see from the graph above that every simulation ends up where predicted, no matter on which side of the equilibrium it starts. The simulations starting with a population size corresponding to an equilibrium for the strong allee effect ($n=0$, $n=A$, $n=K$) do not vary and stays at equilibrium over time. In the strong Allee effect, the population starting between 0 and the critical size $A$ is attended to diminish until reaching the equilibrium (i.e $n=0$). With the orange line, we can graphically see that this is the case. The population starting between the critical size $A$ and the support capacity $K$ is attended to grow until it reaches the support capacity ($n=K$). This is confirmed by the green line. Finally, a population starting above the support capacity is attended to be downsizing until reaching the support capacity ($n=K$). This is confirmed by the yellow line. 
 
 
 # Conclusions
