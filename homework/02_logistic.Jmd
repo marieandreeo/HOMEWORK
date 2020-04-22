@@ -8,14 +8,12 @@ layout: page
 
 
 
-<! --
-Under the Allee effect, the growth of a population is reduced at low densities. Using the strong and the weak Allee effect models as indicated below, find the equilibrium through calculations, then confirm these using a graphical technique. Finally, write an ordinary differential equations model for the strong Allee effect, and verify that populations starting on different sides of the equilibrium do end up where they are predicted.
--->
+<!--Under the Allee effect, the growth of a population is reduced at low densities. Using the strong and the weak Allee effect models as indicated below, find the equilibrium through calculations, then confirm these using a graphical technique. Finally, write an ordinary differential equations model for the strong Allee effect, and verify that populations starting on different sides of the equilibrium do end up where they are predicted.-->
 
 Under the Allee effect, the growth of a population is reduced at low densities.
-This means that there is a positive correlation between the growth rate and the population size; implying that when the population size is growing, the growth rate is growing as well, whereas when the population size reduces, the growth rate is reduced as well. This phenomenon can be present in certain species and normally for small effectives. 
+This is explained by the fact that there is a positive correlation between the population size and the fitness (survival rate, reproductivity, etc.) of an individual; implying a positive correlation between the growth rate per capita and the population size, over a certain determined interval. This phenomenon can be present in certain species and always normally for small effectives. The cooperative behavior in species is an example of factor explaining a better fitness at higher sizes of population, increasing the chance of surviving and feeding.  
 
-The strong Allee effect arise when there is a critical density of the population size. When this critical population size is reached, the growth rate per capita becomes negative. 
+The strong Allee effect arise when there is a critical density of the population size. When the population size is under this critical point, the growth rate per capita becomes negative and the population will eventually not be able to persist. 
 
 The weak Allee effect arise when there is no critical density of the population size. Assuming this, the growth rate per capita is always positive and varies as mentionned earlier. 
 
@@ -74,7 +72,7 @@ We will now confirm those equilibrium for both models with graphical technics:
 
 ## Strong Allee effect equilibrium
 
-Starting with the strong Allee effect:
+Starting with the simulation of the strong Allee effect:
 
 ```julia
 # Generating the strong Allee effect function taking the initial 
@@ -111,11 +109,11 @@ hline!([0], ls=:dash)
 vline!([0, p.K, p.A])
 
 ```
-The green vertical lines were placed where the equilibriums were attended to be reached. Knowing that this situation arise when dn/dt = 0 (dashed line), we can graphically see that the three values that were determined earlier ($\hat n_1 = 0, \hat n_2 = A, \hat n_3 = K$) are effectively equilibriums. We also can graphically see that for a size of population varying between 0 and the critical size $A$, the population is diminishing (i.e $\frac{\text{d}}{\text{d}t}n \leq 0$), whereas the population size is growing (i.e $\frac{\text{d}}{\text{d}t}n \\geq 0$) when it is bewtween de critical size $A$ and the support capacity $K$. We also see that in this situation, and for small population sizes (i.e closer to $A$), the variation in the increase of size is getting higher than for bigger populations (i.e closer to $K$), as predicted.
+The green vertical lines were placed where the equilibriums were attended to be reached. Knowing that this situation arise when dn/dt = 0 (dashed line), we can graphically see that the three values that were determined earlier ($\hat n_1 = 0, \hat n_2 = A, \hat n_3 = K$) are effectively equilibriums. We also can graphically see that for a size of population varying between 0 and the critical size $A$, the population is diminishing (i.e $\frac{\text{d}}{\text{d}t}n \leq 0$), whereas the population size is growing (i.e $\frac{\text{d}}{\text{d}t}n \\geq 0$) when it is bewtween the critical size $A$ and the support capacity $K$. 
 
 ## Weak Allee effect equilibrium
 
-Now, for the weak Allee effect:
+Now, simulating the weak Allee effect:
 
 ```julia
 # Generating the strong Allee effect function taking the initial 
@@ -143,11 +141,11 @@ hline!([0], ls=:dash)
 vline!([0, p.K])
 
 ```
-Again, the green vertical lines were placed where the equilibriums were attended to be reached. Knowing that this situation arise when dn/dt = 0 (dashed line), we can graphically see that the equilibriums are reached when dn/dt = 0 for each of the two values that were determined earlier ($\hat n_1 = 0, \hat n_2 = K$). We can also graphically see that there is no critical population size under which the population is downsizing. For a size of population varying between 0 and the support capacity $K$, the population is growing (i.e i.e $\frac{\text{d}}{\text{d}t}n \\geq 0$), and will diminish when the support capacity is reached and surpass.We also see that for small population sizes (i.e closer to $0$), the variation of the size of the population is getting higher, until the population size is too big (i.e closer to $K$), and the increased is getting smaller and smaller, as predicted.
+Again, the green vertical lines were placed where the equilibriums were attended to be reached. Knowing that this situation arise when dn/dt = 0 (dashed line), we can graphically see that the equilibriums are reached when dn/dt = 0 for each of the two values that were determined earlier ($\hat n_1 = 0, \hat n_2 = K$). We can also graphically see that there is no critical population size under which the population is downsizing. For a size of population varying between 0 and the support capacity $K$, the population is growing (i.e i.e $\frac{\text{d}}{\text{d}t}n \\geq 0$), and will diminish when the support capacity is reached and surpass.
 
 ## ODE model for Strong Allee effect
 
-We will now right an ordinary diffrential equation for the Strong Allee effect and then we will verify that different populations starting on different sides of the equilibrium will end up where predicted. 
+We will now wright an ordinary diffrential equation for the Strong Allee effect and then we will verify that different populations starting on different sides of the equilibrium will end up where predicted. 
 
 ```julia
 # Defining the ordinary diffrential equation (ODE) problems for different initial population sizes, starting from all sides of equilibrium
@@ -178,11 +176,11 @@ solution_strong6 = solve(prob_strong6)
 plot!(solution_strong6, label ="Initial population size: 110 ", xlim=(0,200), c=:yellow, xlabel = "Time", ylabel ="Population size (n)", title="Simulations for the strong Allee effect", left_margin = 10mm, bottom_margin = 10mm) #n0 starting above the last equilibrium
 
 ```
-We can see from the graph above that every simulation ends up where predicted, no matter on which side of the equilibrium it starts. The simulations starting with a population size corresponding to an equilibrium for the strong allee effect ($n=0$, $n=A$, $n=K$) do not vary and stays at equilibrium over time. In the strong Allee effect, the population starting between 0 and the critical size $A$ is attended to diminish until reaching the equilibrium (i.e $n=0$). With the orange line, we can graphically see that this is the case. The population starting between the critical size $A$ and the support capacity $K$ is attended to grow until it reaches the support capacity ($n=K$). This is confirmed by the green line. Finally, a population starting above the support capacity is attended to be downsizing until reaching the support capacity ($n=K$). This is confirmed by the yellow line. 
+We can see from the graph above that every simulation ends up where predicted, no matter on which side of the equilibrium it starts. The simulations starting with a population size corresponding to an equilibrium for the strong allee effect ($n=0$, $n=A$, $n=K$) do not vary and stays at equilibrium over time. In the strong Allee effect, the population starting between 0 and the critical size $A$ is attended to diminish until reaching the extinction (i.e $n=0$). With the orange line, we can graphically see that this is the case. The population starting between the critical size $A$ and the support capacity $K$ is attended to grow until it reaches the support capacity ($n=K$). This is confirmed by the green line. Finally, a population starting above the support capacity is attended to be downsizing until reaching the support capacity ($n=K$). This is confirmed by the yellow line. 
 
 
 # Conclusions
 
-We have designed a model for both strong and weak Allee effect. In the strong Allee effect, we identified three equilibriums, corresponding to 0, the critical size $A$ and the support capacity $K$. For the population to grow, we have identified that the population size must be situated between $A$ and $K$, otherwise, it diminishes, except for the equilibrium values. For the weak Allee effect, we identified two equilibriums, corresponding to 0 and the support capacity $K$. For the population to grow, we have identified that the population size must be situated between $0$ and $K$. In the final section, we showed that regardless of the initial population size, the system always leads to the equilibrium. 
+We have designed a model for both strong and weak Allee effect. In the strong Allee effect, we identified three population sizes equilibriums, corresponding to 0, to the critical size $A$ and to the support capacity $K$. For the population to grow, we have identified that the population size must be situated between $A$ and $K$, otherwise, it diminishes, except for the equilibrium values. For the weak Allee effect, we identified two equilibriums, corresponding to 0 and the support capacity $K$. For the population to grow, we have identified that the population size must be situated between $0$ and $K$. In the final section, we showed that regardless of the initial population size, the system always leads to its equilibriums. 
 
 
