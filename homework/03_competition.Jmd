@@ -15,6 +15,10 @@ layout: page
 > using a global carrying capacity for the population, or using four different
 > competition terms (for intra and inter-specific competition).
 
+When two populations are competing for the same limited ressources, they are both exposed to intraspecific competition, as described by the logistic model of growth, but they are also affected by interspecific competition. The growth rates of those populations are therefor negatively influenced by both the rate of encounters between individuals of the same specie, as well as the one between individuals from different species. The interaction between those two groups can either lead to the extinction of one or another, or both, but it can also lead to the coexistence of the species.
+
+In this work, we will first identify the zero-growth isoclines for both popoulations, and analyse when the equilibriums, either with one or two species, are feasible. We will then simulates this model with different parameters to show that its behavior act as predicted. 
+
 # Required packages
 
 ```julia
@@ -34,6 +38,27 @@ where $\frac{\text{d}x}{\text{d}t}$ and $\frac{\text{d}y}{\text{d}t}$ represent 
 
 # Model analysis
 
+## Expression of the zero-growth isoclines
+
+The zero-growth isoclines corresponds to the curve along which the variation of one of the population is equal to zero. 
+
+Hence, we can find the isocline for the $x$ population by first posing: $\frac{\text{d}x}{\text{d}t \frac{1}{x}} = 0$. We then obtain:
+
+$$R - A\times x - B\times y = 0$$
+
+By isolating $y$ from this, we obtain the expression of the zero-growth isocline for the $x$ population, given by:
+
+$$ y = \frac{-A}{B}x + \frac{R}{B} $$
+
+We can then find the isocline for the $y$ population by posing: $\frac{\text{d}y}{\text{d}t \frac{1}{y}} = 0$. We then obtain:
+
+$$r - a\times y - b\times x = 0$$
+
+By isolating $y$ from this, we obtain the expression of the zero-growth isocline for the $y$ population, given by:
+
+$$ x = \frac{-b}{a}x + \frac{r}{a} $$
+ 
+ 
 ## Equilibriums
 
 We will first find the expression of the zero-growth isoclines for this model. To achieve this, we have to find the values of both population sizes at equilibrium ($\hat x$ and $\hat y$) for which there is no more variation of size (i.e $\frac{\text{d}x}{\text{d}t} = 0$ and $\frac{\text{d}y}{\text{d}t} = 0$):
@@ -53,6 +78,7 @@ The \textbf{first equilibrium} arise with $\hat x_1 = 0$ and $\hat y_1 = 0$.
 If we then consider that the $y$ population goes extinct($y=0$):
 
 $$\frac{\text{d}x}{\text{d}t} = x\times [R - A\times x] = 0$$
+
 $$\frac{\text{d}x}{\text{d}t} = [R - A\times x] = 0$$
 
 we can find the \textbf{second equilibrium} at $\hat x_2 = \frac{R}{A}$ and $\hat y_2 = 0$.
@@ -60,13 +86,18 @@ we can find the \textbf{second equilibrium} at $\hat x_2 = \frac{R}{A}$ and $\ha
 If we then consider that the $x$ population goes extinct ($x=0$):
 
 $$\frac{\text{d}y}{\text{d}t} = y\times [r - a\times y] = 0$$
+
 $$\frac{\text{d}y}{\text{d}t} = [r - a\times y] = 0$$
 
 we can find the \textbf{third equilibrium} at $\hat x_3 = 0$ and $\hat y_2 = \frac{r}{a}$.
 
 Finally, we can find the last equilibrium with the following:
 
-$$[R - A\times x - B\times y] = 0$$ and $$[r - a\times y - b\times x] = 0$$
+$$[R - A\times x - B\times y] = 0$$ 
+
+and 
+
+$$[r - a\times y - b\times x] = 0$$
 
 If we isolte $x$ from the first equation we obtain:
 
@@ -74,7 +105,7 @@ $$x = [\frac{R-B\times y}{A}]$$
 
 If we replace the expression of $x$ in the second equation we obtain:
 
-$$[r - a\times y - b\times \frac{R-B\times y}{A}] = 0$$,
+$$[r - a\times y - b\times \frac{R-B\times y}{A}] = 0$$
 
 giving as the \textbf{fourth equilibrium} $\hat x_4 = \frac{r\times B - R\times a}{B\times b - A\times a}$ and $\hat y_4 = \frac{R\times b - r\times A}{B\times b - A\times a}$.
 
@@ -86,11 +117,27 @@ The \textbf{first equilibrium} ($\hat x_1 = 0$ and $\hat y_1 = 0$) is always fea
 
 The \textbf{second equilibrium} ($\hat x_2 = \frac{R}{A}$ and $\hat y_2 = 0$) is feasible if $\frac{R}{A} \geq 0$, which is always true since $R$ and $A$ are coefficients that are always positive. 
 
-The \textbf{third equilibrium} (\hat x_3 = 0$ and $\hat y_2 = \frac{r}{a}$) is feasible if \frac{r}{a} \geq 0$, which is always true since $r$ and $a$ are always positive. 
+The \textbf{third equilibrium} ($\hat x_3 = 0$ and $\hat y_2 = \frac{r}{a}$) is feasible if $\frac{r}{a} \geq 0$, which is always true since $r$ and $a$ are always positive. 
 
-The \textbf{fourth equilibrium} ($\hat x_4 = \frac{r\times B - R\times a}{B\times b - A\times a}$ and $\hat y_4 = \frac{R\times b - r\times A}{B\times b - A\times a}$) is feasible if 
+The \textbf{fourth equilibrium} ($\hat x_4 = \frac{r\times B - R\times a}{B\times b - A\times a}$ and $\hat y_4 = \frac{R\times b - r\times A}{B\times b - A\times a}$) is feasible if the numerator and the denominator of these terms have the same signs. If we consider positives signs, we obtain the following inequations: 
 
+$$ Bb > Aa $$
+$$ rB > Ra $$
+$$ Rb > rA $$
 
+Giving us the first condition that leads to the fourth equilibrium to be feasible:
+
+$$ \frac{a}{B} < \frac{r}{R} < \frac{b}{A}
+
+If we now consider negatives signs, we obtain the following inequations: 
+
+$$ Bb < Aa $$
+$$ rB < Ra $$
+$$ Rb < rA $$
+
+Giving us the second condition that leads to the fourth equilibrium to be feasible:
+
+$$ \frac{b}{A} < \frac{r}{R} < \frac{a}{B}
 
 # Simulations
 
