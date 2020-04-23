@@ -109,7 +109,7 @@ hline!([0], ls=:dash)
 vline!([0, p.K, p.A])
 
 ```
-The green vertical lines were placed where the equilibriums were excepted to be reached. Knowing that this situation arises when dn/dt = 0 (dashed line), we can graphically see that the three values that were determined earlier ($\hat n_1 = 0, \hat n_2 = A, \hat n_3 = K$) are effectively equilibriums. We can also graphically see the impact of the Allee effect on the growth rate; for a size of population varying between 0 and the critical size $A$, the population is diminishing (i.e $\frac{\text{d}}{\text{d}t}n \leq 0$) toward extinction, whereas the population size is growing (i.e $\frac{\text{d}}{\text{d}t}n \\geq 0$) towards the support capacity when it is situated between the critical size $A$ and the support capacity $K$. 
+The green vertical lines were placed where the equilibriums were expected to be reached. Knowing that this situation arises when dn/dt = 0 (dashed line), we can graphically see that the three values that were determined earlier ($\hat n_1 = 0, \hat n_2 = A, \hat n_3 = K$) are effectively equilibriums. We can also graphically see the impact of the Allee effect on the growth rate; for a size of population varying between 0 and the critical size $A$, the population is diminishing (i.e $\frac{\text{d}}{\text{d}t}n \leq 0$) toward extinction, whereas the population size is growing (i.e $\frac{\text{d}}{\text{d}t}n \\geq 0$) towards the support capacity when it is situated between the critical size $A$ and the support capacity $K$. 
 
 ## Weak Allee effect equilibrium
 

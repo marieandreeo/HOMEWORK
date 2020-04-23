@@ -89,7 +89,7 @@ $$\frac{\text{d}y}{\text{d}t} = y\times [r - a\times y] = 0$$
 
 $$\frac{\text{d}y}{\text{d}t} = [r - a\times y] = 0$$
 
-we can find the \textbf{*third equilibrium*} at $\hat x_3 = 0$ and $\hat y_2 = \frac{r}{a}$.
+we can find the \textbf{*third equilibrium*} at $\hat x_3 = 0$ and $\hat y_3 = \frac{r}{a}$.
 
 Finally, we can find the last equilibrium with the following:
 
