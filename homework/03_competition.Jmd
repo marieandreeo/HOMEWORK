@@ -191,43 +191,58 @@ function eq_1_sp_y(p)
     return (x̂, ŷ)
 end
 ```
-Now, we will define different functions that will serve to class the parameters combinaisons, according on the equilibrium that they will produce. For the survival of only the x or the y specie, we will keep all the intra and inter specific coefficients equals between them, and we will only choose the combinations of parameters that allows a bigger growth rate coefficient to the surviving specie. For the equilibrium between both specie, we will separate the parameters combinations according to the ones that corresponds to the first and second conditions that were presented perviously.
+Now, we will define different functions that will serve to class the parameters combinaisons, according to the equilibrium that they will produce. 
+
+For the survival of only the $x$ specie, we will choose to keep the combinations of parameters with the following method:
+
+- Keeping all competition coefficients equals, we will choose the combination allowing $r$ < $R$.
+
+- Keeping all the inter-specific competition and growth rate coefficients equals, we will choose the combination allowing $A$ < $a$.
+
+- Keeping all the intra-specific competition and growth rate coefficients equals, we will choose the combination allowing $B$ < $b$.
+
+For the survival of only the $y$ specie, we will choose to keep the combinations of parameters with the following method:
+
+- Keeping all competition coefficients equals, we will choose the combination allowing $R$ < $r$.
+
+- Keeping all the inter-specific competition and growth rate coefficients equals, we will choose the combination allowing $a$ < $A$.
+
+- Keeping all the intra-specific competition and growth rate coefficients equals, we will choose the combination allowing $b$ < $B$.
+
+For the equilibrium between both specie, we will separate the parameters combinations according to the ones that corresponds to the first and second conditions that were identified perviously.
 
 ```julia
-eq_1_sp_exists_x(p) = (p.r < p.R) & (p.a == p.A == p.b == p.B) #keeping the parameters allowing only x to survive
-eq_1_sp_exists_y(p) = (p.R < p.r) & (p.a == p.A == p.b == p.B) #keeping the parameters allowing only y to survive
+eq_1_sp_exists_x(p) = (p.r < p.R) & (p.a == p.A == p.b == p.B) | (p.A < p.a) & (p.r == p.R == p.b == p.B) | (p.B < p.b) & (p.a == p.A == p.r == p.R)
+ #keeping the parameters allowing only x to survive
+eq_1_sp_exists_y(p) = (p.R < p.r) & (p.a == p.A == p.b == p.B) | (p.a < p.A) & (p.r == p.R == p.b == p.B) | (p.b < p.B) & (p.a == p.A == p.r == p.R)
+ #keeping the parameters allowing only y to survive
 eq_2_sp_exists(p) =  (p.b/p.A < p.r/p.R < p.a/p.B) #keeping the parameters allowing both x and y to survive, according to the first condition of equilibrium
 eq_2_sp_exists2(p) =   (p.a/p.B < p.r/p.R < p.b/p.A) #keeping the parameters allowing both x and y to survive, according to the second condition of equilibrium
 ```
 We will now create a grid to generate all the possible combinations of the 6 parameters, and we will filter them according to the functions defined above. 
 
 ```julia
+# Grid for the search 
+possible_values = 0.9:0.05:1.1
 
-function parameters()
-    # Grid for the search 
-    possible_values = 0.9:0.05:1.1
+# Empty array for parameter values 
+p_combin = []
 
-    # Empty array for parameter values 
-    p_combin = []
-
-    # Grid search, generating all the combinations of parameters
-    for r in possible_values, R in possible_values
-        for a in possible_values, A in possible_values
-            for b in possible_values, B in possible_values
-                p = (r=r, R=R, a=a, A=A, b=b, B=B)
-                push!(p_combin, p) 
-            end
+# Grid search, generating all the combinations of parameters
+for r in possible_values, R in possible_values
+    for a in possible_values, A in possible_values
+        for b in possible_values, B in possible_values
+            p = (r=r, R=R, a=a, A=A, b=b, B=B)
+            push!(p_combin, p) 
         end
     end
-
-    # Keeping only parameters corresponding to our criteria for different outcomes
-    p_xy = filter(eq_2_sp_exists, p_combin)
-    p_xy2 = filter(eq_2_sp_exists2, p_combin)
-    p_x = filter(eq_1_sp_exists_x, p_combin)
-    p_y = filter(eq_1_sp_exists_y, p_combin)
 end
 
-parameters()
+# Keeping only parameters corresponding to our criteria for different outcomes
+p_xy = filter(eq_2_sp_exists, p_combin)
+p_xy2 = filter(eq_2_sp_exists2, p_combin)
+p_x = filter(eq_1_sp_exists_x, p_combin)
+p_y = filter(eq_1_sp_exists_y, p_combin)
 ```
 
 Finally, we will choose a random combination of parameters corresponding to each different scenarios, we will define the ordinary differential equation problem corresponding and resolve it.
