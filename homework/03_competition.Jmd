@@ -35,11 +35,11 @@ $$\frac{\text{d}x}{\text{d}t} = R\times x - A\times x^2 - B\times x\times y$$
 
 $$\frac{\text{d}y}{\text{d}t} = r\times y - a\times y^2 - b\times x\times y$$
 
-where $\frac{\text{d}x}{\text{d}t}$ and $\frac{\text{d}y}{\text{d}t}$ represent the growth rate of the populations, where $R$ and $r$ represent the intrinsec growth rate for the $x$ and $y$ populations respectively. The parameters $A$ and $B$ are respectively the intraspecific and interspesific coefficients for the $x$ population. The parameters $a$ and $b$ are the the intraspecific and interspecific coefficients for the $y$ population. 
+where $\frac{\text{d}x}{\text{d}t}$ and $\frac{\text{d}y}{\text{d}t}$ represent the growth rate of the populations, where $R$ and $r$ represent the intrinsec growth rate for the $x$ and $y$ populations respectively. The parameters $A$ and $B$ are respectively the intraspecific and interspesific coefficients for the $x$ population. The parameters $a$ and $b$ are the the intraspecific and interspecific coefficients for the $y$ population. All of thoses coefficients are positives. 
 
-We can see that both populations will increase in regards of the following terms: $R \times x$ for the $x$ population and $r \times y$ for the $y$ population.
+We can see that both populations growth rate will increase in regards of the following terms: $R \times x$ for the $x$ population and $r \times y$ for the $y$ population. Those terms represents the assumed intrinsec exponential growth of the species when there is no competition.
 
-On the other hand, both population will decrease in regards of the following terms: $A\times x^2$, $B\times x\times y$ for the $x$ population and $a\times y^2$, $b\times x\times y$ for the $t$ population. 
+On the other hand, both populations growth rate will decrease in regards of the following terms: $A\times x^2$, $B\times x\times y$ for the $x$ population and $a\times y^2$, $b\times x\times y$ for the $t$ population. Those terms represents respectively the impact of the intra and inter specific competition. 
 
 # Model analysis
 
@@ -202,28 +202,32 @@ eq_2_sp_exists2(p) =   (p.a/p.B < p.r/p.R < p.b/p.A) #keeping the parameters all
 We will now create a grid to generate all the possible combinations of the 6 parameters, and we will filter them according to the functions defined above. 
 
 ```julia
-# Grid for the search 
-possible_values = 0.9:0.05:1.1
 
-# Empty array for parameter values 
-p_combin = []
+function parameters()
+    # Grid for the search 
+    possible_values = 0.9:0.05:1.1
 
-# Grid search, generating all the combinations of parameters
-for r in possible_values, R in possible_values
-    for a in possible_values, A in possible_values
-        for b in possible_values, B in possible_values
-            p = (r=r, R=R, a=a, A=A, b=b, B=B)
-            push!(p_combin, p) 
+    # Empty array for parameter values 
+    p_combin = []
+
+    # Grid search, generating all the combinations of parameters
+    for r in possible_values, R in possible_values
+        for a in possible_values, A in possible_values
+            for b in possible_values, B in possible_values
+                p = (r=r, R=R, a=a, A=A, b=b, B=B)
+                push!(p_combin, p) 
+            end
         end
     end
+
+    # Keeping only parameters corresponding to our criteria for different outcomes
+    p_xy = filter(eq_2_sp_exists, p_combin)
+    p_xy2 = filter(eq_2_sp_exists2, p_combin)
+    p_x = filter(eq_1_sp_exists_x, p_combin)
+    p_y = filter(eq_1_sp_exists_y, p_combin)
 end
 
-# Keeping only parameters corresponding to our criteria for different outcomes
-p_eq = filter(eq_2_sp_exists, p_combin)
-p_eq2 = filter(eq_2_sp_exists2, p_combin)
-p_x = filter(eq_1_sp_exists_x, p_combin)
-p_y = filter(eq_1_sp_exists_y, p_combin)
-
+parameters()
 ```
 
 Finally, we will choose a random combination of parameters corresponding to each different scenarios, we will define the ordinary differential equation problem corresponding and resolve it.
@@ -232,8 +236,8 @@ Finally, we will choose a random combination of parameters corresponding to each
 # Choosing random parameters among the possible ones for all the scenarios
 rand_p_x = rand(p_x) 
 rand_p_y = rand(p_y) 
-rand_p_xy = rand(p_eq) 
-rand_p_xy2 = rand(p_eq2) 
+rand_p_xy = rand(p_xy) 
+rand_p_xy2 = rand(p_xy2) 
 
 # Definition of problems
 prob_x = ODEProblem(competition, u0, t, rand_p_x) # only x survives
@@ -253,8 +257,7 @@ The last step of this simulation will allows us to calculate the expected final 
 ### Simulation 1: x survives, y goes extinct
 
 ```julia
-print("Expected value of (x̂,ŷ):") # printing the expected populations sizes
-print(eq_1_sp_x(rand_p_x))
+print("Expected value of (x̂,ŷ): $(eq_1_sp_x(rand_p_x))")
 
 # Ploting the solution 
 p1 = plot(solution_x, title = "Extinction of the y population \n$(rand_p_x)", xlab="Time", ylab="Population size")
@@ -265,8 +268,7 @@ In the graphic above, we can see that the model react as predicted. When all par
 ### Simulation 2: x goes extinct, y survives 
 
 ```julia
-print("Expected value of (x̂,ŷ):") # printing the expected populations sizes
-print(eq_1_sp_y(rand_p_y))
+print("Expected value of (x̂,ŷ): $(eq_1_sp_y(rand_p_y))")
 
 # Ploting the solution 
 p2 = plot(solution_y, title = "Extinction of the x population \n$(rand_p_y)", xlab="Time", ylab="Population size")
@@ -277,8 +279,7 @@ In the graphic above, we can see that the model react as predicted. When all par
 ### Simulation 3: both populations are expected to survive (first condition)
 
 ```julia
-print("Expected value of (x̂,ŷ):") # printing the expected populations sizes
-print(eq_2_sp(rand_p_xy))
+print("Expected value of (x̂,ŷ): $(eq_2_sp(rand_p_xy))")
 
 # Ploting the solution 
 p3 = plot(solution_xy, title = "Equilibrium between both x and y populations \nTesting the first condition\n$(rand_p_xy)", xlab="Time", ylab="Population size")
@@ -290,8 +291,7 @@ In the graphic above, we can see that the model react as predicted. When the sel
 ### Simulation 4: both populations are expected to survive (second condition)
 
 ```julia
-print("Expected value of (x̂,ŷ):") # printing the expected populations sizes
-print(eq_2_sp(rand_p_xy2))
+print("Expected value of (x̂,ŷ): $(eq_2_sp(rand_p_xy2))")
 
 # Ploting the solution 
 p4 = plot(solution_xy2, title = "Equilibrium between both x and y populations \nTesting the second condition \n$(rand_p_xy)", xlab="Time", ylab="Population size")
