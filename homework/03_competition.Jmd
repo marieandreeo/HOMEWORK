@@ -180,7 +180,7 @@ function eq_2_sp(p)
 end
 
 """
-This function calculates the population sizes when only $x$ survives, according to the selected parameters.
+This function calculates the population sizes when only x survives, according to the selected parameters.
 """
 function eq_1_sp_x(p)
     x̂ = (p.R/p.A)
@@ -189,7 +189,7 @@ function eq_1_sp_x(p)
 end
 
 """
-This function calculates the population sizes when only $y$ survives, according to the selected parameters.
+This function calculates the population sizes when only y survives, according to the selected parameters.
 """
 function eq_1_sp_y(p)
     x̂ = 0
@@ -204,13 +204,13 @@ Now, we will define different functions that will serve to class the parameters 
 """
 This function is keeping the parameters allowing only x to survive. 
 
-For the survival of only the $x$ specie, we will choose to keep the combinations of parameters with the following method:
+For the survival of only the x specie, we will choose to keep the combinations of parameters with the following method:
 
-- Keeping all competition coefficients equals, we will choose the combination allowing $r$ < $R$.
+- Keeping all competition coefficients equals, we will choose the combination allowing r < R.
 
-- Keeping all the inter-specific competition and growth rate coefficients equals, we will choose the combination allowing $A$ < $a$.
+- Keeping all the inter-specific competition and growth rate coefficients equals, we will choose the combination allowing A < a.
 
-- Keeping all the intra-specific competition and growth rate coefficients equals, we will choose the combination allowing $B$ < $b$.
+- Keeping all the intra-specific competition and growth rate coefficients equals, we will choose the combination allowing B < b.
 
 - Removing all the combinations leading to an equilibrium.
 """
@@ -218,15 +218,15 @@ For the survival of only the $x$ specie, we will choose to keep the combinations
 eq_1_sp_exists_x(p) = ((p.r < p.R) & (p.a == p.A == p.b == p.B) | (p.A < p.a) & (p.r == p.R == p.b == p.B) | (p.B < p.b) & (p.a == p.A == p.r == p.R)) & ~ (p.b/p.A < p.r/p.R < p.a/p.B) & ~ (p.a/p.B < p.r/p.R < p.b/p.A) 
 
 """
-This function is keeping the parameters allowing only $y$ to survive. 
+This function is keeping the parameters allowing only y to survive. 
 
-For the survival of only the $y$ specie, we will choose to keep the combinations of parameters with the following method:
+For the survival of only the y specie, we will choose to keep the combinations of parameters with the following method:
 
-- Keeping all competition coefficients equals, we will choose the combination allowing $R$ < $r$.
+- Keeping all competition coefficients equals, we will choose the combination allowing R < r.
 
-- Keeping all the inter-specific competition and growth rate coefficients equals, we will choose the combination allowing $a$ < $A$.
+- Keeping all the inter-specific competition and growth rate coefficients equals, we will choose the combination allowing a < A.
 
-- Keeping all the intra-specific competition and growth rate coefficients equals, we will choose the combination allowing $b$ < $B$.
+- Keeping all the intra-specific competition and growth rate coefficients equals, we will choose the combination allowing b < B.
 
 - Removing all the combinations leading to an equilibrium.
 """
@@ -234,13 +234,13 @@ For the survival of only the $y$ specie, we will choose to keep the combinations
 eq_1_sp_exists_y(p) = ((p.R < p.r) & (p.a == p.A == p.b == p.B) | (p.a < p.A) & (p.r == p.R == p.b == p.B) | (p.b < p.B) & (p.a == p.A == p.r == p.R)) & ~ (p.b/p.A < p.r/p.R < p.a/p.B) & ~ (p.a/p.B < p.r/p.R < p.b/p.A)
 
 """
-This function is keeping the parameters allowing both $x$ and $y$ to survive, according to the first condition of equilibrium identified previously.
+This function is keeping the parameters allowing both x and y to survive, according to the first condition of equilibrium identified previously.
 """
 
 eq_2_sp_exists(p) =  (p.b/p.A < p.r/p.R < p.a/p.B) #keeping the parameters allowing both x and y to survive, according to the first condition of equilibrium
 
 """
-This function is keeping the parameters allowing both $x$ and $y$ to survive, according to the second condition of equilibrium identified previously.
+This function is keeping the parameters allowing both x and y to survive, according to the second condition of equilibrium identified previously.
 """
 eq_2_sp_exists2(p) =   (p.a/p.B < p.r/p.R < p.b/p.A) #keeping the parameters allowing both x and y to survive, according to the second condition of equilibrium
 ```
