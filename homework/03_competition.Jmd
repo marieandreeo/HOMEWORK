@@ -169,7 +169,9 @@ t = (0., 1000.) # t0 - t end
 Now, let's create the different functions that we will need to analyse this model:
 
 ```julia
-# calculates the population sizes when an equilibrium between both population is possible, according to the selected parameters
+"""
+This function calculates the population sizes when an equilibrium between both population is possible, according to the selected parameters.
+"""
 function eq_2_sp(p) 
     w = p.B*p.b-p.A*p.a
     x̂ = (p.r*p.B - p.R*p.a)/w
@@ -177,14 +179,18 @@ function eq_2_sp(p)
     return (x̂, ŷ)
 end
 
-# calculates the population sizes when only x survives, according to the selected parameters
+"""
+This function calculates the population sizes when only $x$ survives, according to the selected parameters.
+"""
 function eq_1_sp_x(p)
     x̂ = (p.R/p.A)
     ŷ = 0
     return (x̂, ŷ)
 end
 
-# calculates the population sizes when only y survives, according to the selected parameters
+"""
+This function calculates the population sizes when only $y$ survives, according to the selected parameters.
+"""
 function eq_1_sp_y(p)
     x̂ = 0
     ŷ = (p.r/p.a) 
@@ -193,7 +199,10 @@ end
 ```
 Now, we will define different functions that will serve to class the parameters combinaisons, according to the equilibrium that they will produce. 
 
-For the equilibrium between both species, we will separate the parameters combinations according to the ones that corresponds to the first and second conditions of equilibrium that were identified perviously.
+```julia
+
+"""
+This function is keeping the parameters allowing only x to survive. 
 
 For the survival of only the $x$ specie, we will choose to keep the combinations of parameters with the following method:
 
@@ -204,6 +213,12 @@ For the survival of only the $x$ specie, we will choose to keep the combinations
 - Keeping all the intra-specific competition and growth rate coefficients equals, we will choose the combination allowing $B$ < $b$.
 
 - Removing all the combinations leading to an equilibrium.
+"""
+
+eq_1_sp_exists_x(p) = ((p.r < p.R) & (p.a == p.A == p.b == p.B) | (p.A < p.a) & (p.r == p.R == p.b == p.B) | (p.B < p.b) & (p.a == p.A == p.r == p.R)) & ~ (p.b/p.A < p.r/p.R < p.a/p.B) & ~ (p.a/p.B < p.r/p.R < p.b/p.A) 
+
+"""
+This function is keeping the parameters allowing only $y$ to survive. 
 
 For the survival of only the $y$ specie, we will choose to keep the combinations of parameters with the following method:
 
@@ -214,12 +229,19 @@ For the survival of only the $y$ specie, we will choose to keep the combinations
 - Keeping all the intra-specific competition and growth rate coefficients equals, we will choose the combination allowing $b$ < $B$.
 
 - Removing all the combinations leading to an equilibrium.
+"""
 
+eq_1_sp_exists_y(p) = ((p.R < p.r) & (p.a == p.A == p.b == p.B) | (p.a < p.A) & (p.r == p.R == p.b == p.B) | (p.b < p.B) & (p.a == p.A == p.r == p.R)) & ~ (p.b/p.A < p.r/p.R < p.a/p.B) & ~ (p.a/p.B < p.r/p.R < p.b/p.A)
 
-```julia
-eq_1_sp_exists_x(p) = ((p.r < p.R) & (p.a == p.A == p.b == p.B) | (p.A < p.a) & (p.r == p.R == p.b == p.B) | (p.B < p.b) & (p.a == p.A == p.r == p.R)) & ~ (p.b/p.A < p.r/p.R < p.a/p.B) & ~ (p.a/p.B < p.r/p.R < p.b/p.A) #keeping the parameters allowing only x to survive
-eq_1_sp_exists_y(p) = ((p.R < p.r) & (p.a == p.A == p.b == p.B) | (p.a < p.A) & (p.r == p.R == p.b == p.B) | (p.b < p.B) & (p.a == p.A == p.r == p.R)) & ~ (p.b/p.A < p.r/p.R < p.a/p.B) & ~ (p.a/p.B < p.r/p.R < p.b/p.A) #keeping the parameters allowing only y to survive
+"""
+This function is keeping the parameters allowing both $x$ and $y$ to survive, according to the first condition of equilibrium identified previously.
+"""
+
 eq_2_sp_exists(p) =  (p.b/p.A < p.r/p.R < p.a/p.B) #keeping the parameters allowing both x and y to survive, according to the first condition of equilibrium
+
+"""
+This function is keeping the parameters allowing both $x$ and $y$ to survive, according to the second condition of equilibrium identified previously.
+"""
 eq_2_sp_exists2(p) =   (p.a/p.B < p.r/p.R < p.b/p.A) #keeping the parameters allowing both x and y to survive, according to the second condition of equilibrium
 ```
 We will now create a grid to generate all the possible combinations of the 6 parameters, and we will filter them according to the functions defined above. 
