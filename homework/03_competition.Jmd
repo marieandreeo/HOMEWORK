@@ -24,6 +24,7 @@ In this work, we will first identify the zero-growth isoclines for both popoulat
 ```julia
 using Plots
 using DifferentialEquations
+using Measures
 ```
 
 # Model description and justification
@@ -122,7 +123,9 @@ The \textbf{third equilibrium} ($\hat x_3 = 0$ and $\hat y_2 = \frac{r}{a}$) is 
 The \textbf{fourth equilibrium} ($\hat x_4 = \frac{r\times B - R\times a}{B\times b - A\times a}$ and $\hat y_4 = \frac{R\times b - r\times A}{B\times b - A\times a}$) is feasible if the numerator and the denominator of these terms have the same signs. If we consider negatives signs, we obtain the following inequations: 
 
 $$ Bb < Aa $$
+
 $$ rB < Ra $$
+
 $$ Rb < rA $$
 
 Giving us the first condition that leads to the fourth equilibrium to be feasible:
@@ -132,7 +135,9 @@ $$ \frac{b}{A} < \frac{r}{R} < \frac{a}{B}$$
 If we now consider positives signs, we obtain the following inequations: 
 
 $$ Bb > Aa $$
+
 $$ rB > Ra $$
+
 $$ Rb > rA $$
 
 Giving us the second condition that leads to the fourth equilibrium to be feasible:
@@ -233,23 +238,29 @@ solution_xy2 = solve(prob_xy2)
 ```
 
 ```julia
+print("Expected value of (x̂,ŷ):")
+print(eq_1_sp_x(rand_p_x))
 p1 = plot(solution_x, title = "Extinction of the y population \n$(rand_p_x)", xlab="Time", ylab="Population size")
-plot(p1, lab=["x" "y"], ylim=(0,1.2), minorgrid=true)
+plot(p1, lab=["x" "y"], ylim=(0,1.2), minorgrid=true, left_margin = 10mm, bottom_margin = 10mm)
 ```
 
 ```julia
+print("Expected value of (x̂,ŷ):")
+print(eq_1_sp_y(rand_p_y))
 p2 = plot(solution_y, title = "Extinction of the x population \n$(rand_p_y)", xlab="Time", ylab="Population size")
-plot(p2, lab=["x" "y"], ylim=(0,1.2), minorgrid=true)
+plot(p2, lab=["x" "y"], ylim=(0,1.2), minorgrid=true, left_margin = 10mm, bottom_margin = 10mm)
 ```
 
 ```julia
-p3 = plot(solution_xy, title = "Equilibrium between both x and y populations \nTesting the first \n$(rand_p_xy)", xlab="Time", ylab="Population size")
-plot(p3, lab=["x" "y"], ylim=(0,1.2), minorgrid=true)
+print("Expected value of (x̂,ŷ):")
+print(eq_2_sp(rand_p_xy))
+p3 = plot(solution_xy, title = "Equilibrium between both x and y populations \nTesting the first condition\n$(rand_p_xy)", xlab="Time", ylab="Population size")
+plot(p3, lab=["x" "y"], ylim=(0,1.2), minorgrid=true, left_margin = 10mm, bottom_margin = 10mm)
 ```
 
 ```julia
-p4 = plot(solution_xy2, title = "Equilibrium between both x and y populations \n$(rand_p_xy)", xlab="Time", ylab="Population size")
-plot(p4, lab=["x" "y"], ylim=(0,1.2), minorgrid=true)
+p4 = plot(solution_xy2, title = "Equilibrium between both x and y populations \nTesting the second condition \n$(rand_p_xy)", xlab="Time", ylab="Population size")
+plot(p4, lab=["x" "y"], ylim=(0,1.2), minorgrid=true, left_margin = 10mm, bottom_margin = 10mm)
 ```
 
 # Conclusions
