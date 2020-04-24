@@ -119,25 +119,25 @@ The \textbf{second equilibrium} ($\hat x_2 = \frac{R}{A}$ and $\hat y_2 = 0$) is
 
 The \textbf{third equilibrium} ($\hat x_3 = 0$ and $\hat y_2 = \frac{r}{a}$) is feasible if $\frac{r}{a} \geq 0$, which is always true since $r$ and $a$ are always positive. 
 
-The \textbf{fourth equilibrium} ($\hat x_4 = \frac{r\times B - R\times a}{B\times b - A\times a}$ and $\hat y_4 = \frac{R\times b - r\times A}{B\times b - A\times a}$) is feasible if the numerator and the denominator of these terms have the same signs. If we consider positives signs, we obtain the following inequations: 
-
-$$ Bb > Aa $$
-$$ rB > Ra $$
-$$ Rb > rA $$
-
-Giving us the first condition that leads to the fourth equilibrium to be feasible:
-
-$$ \frac{a}{B} < \frac{r}{R} < \frac{b}{A}$$
-
-If we now consider negatives signs, we obtain the following inequations: 
+The \textbf{fourth equilibrium} ($\hat x_4 = \frac{r\times B - R\times a}{B\times b - A\times a}$ and $\hat y_4 = \frac{R\times b - r\times A}{B\times b - A\times a}$) is feasible if the numerator and the denominator of these terms have the same signs. If we consider negatives signs, we obtain the following inequations: 
 
 $$ Bb < Aa $$
 $$ rB < Ra $$
 $$ Rb < rA $$
 
-Giving us the second condition that leads to the fourth equilibrium to be feasible:
+Giving us the first condition that leads to the fourth equilibrium to be feasible:
 
 $$ \frac{b}{A} < \frac{r}{R} < \frac{a}{B}$$
+
+If we now consider positives signs, we obtain the following inequations: 
+
+$$ Bb > Aa $$
+$$ rB > Ra $$
+$$ Rb > rA $$
+
+Giving us the second condition that leads to the fourth equilibrium to be feasible:
+
+$$ \frac{a}{B} < \frac{r}{R} < \frac{b}{A}$$
 
 # Simulations
 
@@ -155,63 +155,101 @@ end
 
 
 ```julia
-# Finding when equilibrium with both species is possible
+# Finding when equilibrium with 2 species is possible
 # Initial population sizes 
-u0 = [0.1, 0.1]
+u0 = [0.9, 0.1]
 
 # t0 - t end
-t = (0., 100.)
+t = (0., 300.)
 
 function eq_2_sp(p)
-    k = p.B*p.b-p.A*p.a
-    x̂ = (p.B*p.r - p.R*p.a)/k 
-    ŷ = (p.b*p.R - p.r*p.A)/k 
+    w = p.B*p.b-p.A*p.a
+    x̂ = (p.r*p.B - p.R*p.a)/w
+    ŷ = (p.R*p.b - p.r*p.A)/w 
     return (x̂, ŷ)
 end
 
-eq_2_sp_exists(p) = all(eq_2_sp(p).>1e-3)
+function eq_1_sp_x(p)
+    x̂ = (p.R/p.A)
+    ŷ = 0
+    return (x̂, ŷ)
+end
+
+function eq_1_sp_y(p)
+    x̂ = 0
+    ŷ = (p.r/p.a) 
+    return (x̂, ŷ)
+end
+
+eq_1_sp_exists_x(p) = (p.r < p.R) & (p.a == p.A == p.b == p.B)
+eq_1_sp_exists_y(p) = (p.R < p.r) & (p.a == p.A == p.b == p.B)
+eq_2_sp_exists(p) =  (p.b/p.A < p.r/p.R < p.a/p.B)  
+eq_2_sp_exists2(p) =   (p.a/p.B < p.r/p.R < p.b/p.A) 
 
 # Grid for the search 
 possible_values = 0.9:0.05:1.1
 
 # Empty array for parameter values 
-p_eq = []
+p_combin = []
 
 # Grid search
-for a in possible_values, A in possible_values
-    for b in possible_values, B in possible_values
-        p = (r=1.0, R=1.0, a=a, A=A, b=b, B=B)
-        push!(p_eq, p) 
+for r in possible_values, R in possible_values
+    for a in possible_values, A in possible_values
+        for b in possible_values, B in possible_values
+            p = (r=r, R=R, a=a, A=A, b=b, B=B)
+            push!(p_combin, p) 
+        end
     end
 end
 
 # Keep only parameters for which the 2sp equilibrium exists 
-filter!(eq_2_sp_exists, p_eq)
+p_eq = filter(eq_2_sp_exists, p_combin)
+p_eq2 = filter(eq_2_sp_exists2, p_combin)
+
+p_x = filter(eq_1_sp_exists_x, p_combin)
+p_y = filter(eq_1_sp_exists_y, p_combin)
+
 ```
 
 
 ```julia
-# simulation of 4 combinaisons of parameters
-solution_graph = []
-for z in 1:4
-    # Parameters
-    p = rand(p_eq)
+#Choosing random parameters
+rand_p_x = rand(p_x)
+rand_p_y = rand(p_y)
+rand_p_xy = rand(p_eq)
+rand_p_xy2 = rand(p_eq2)
 
-    # Definition of problem
-    prob = ODEProblem(competition, u0, t, p)
+# Definition of problem
+prob_x = ODEProblem(competition, u0, t, rand_p_x)
+prob_y = ODEProblem(competition, u0, t, rand_p_y)
+prob_xy = ODEProblem(competition, u0, t, rand_p_xy)
+prob_xy2 = ODEProblem(competition, u0, t, rand_p_xy2)
 
-    # Resolution of problem
-    solution = solve(prob)
-    push!(solution_graph, solution)
+# Resolution of problem
+solution_x = solve(prob_x)
+solution_y = solve(prob_y)
+solution_xy = solve(prob_xy)
+solution_xy2 = solve(prob_xy2)
+```
 
-end
+```julia
+p1 = plot(solution_x, title = "Extinction of the y population \n$(rand_p_x)", xlab="Time", ylab="Population size")
+plot(p1, lab=["x" "y"], ylim=(0,1.2), minorgrid=true)
+```
 
-    # Plot
-p1 = plot(solution_graph[1])
-p2 = plot(solution_graph[2])
-p3 = plot(solution_graph[3])
-p4 = plot(solution_graph[4])
-plot(p1,p2,p3,p4,layout=(2,2),legend=false)
+```julia
+p2 = plot(solution_y, title = "Extinction of the x population \n$(rand_p_y)", xlab="Time", ylab="Population size")
+plot(p2, lab=["x" "y"], ylim=(0,1.2), minorgrid=true)
+```
+
+```julia
+p3 = plot(solution_xy, title = "Equilibrium between both x and y populations \nTesting the first \n$(rand_p_xy)", xlab="Time", ylab="Population size")
+plot(p3, lab=["x" "y"], ylim=(0,1.2), minorgrid=true)
+```
+
+```julia
+p4 = plot(solution_xy2, title = "Equilibrium between both x and y populations \n$(rand_p_xy)", xlab="Time", ylab="Population size")
+plot(p4, lab=["x" "y"], ylim=(0,1.2), minorgrid=true)
 ```
 
 # Conclusions
