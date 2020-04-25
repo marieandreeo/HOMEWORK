@@ -37,9 +37,9 @@ $$\frac{\text{d}y}{\text{d}t} = r\times y - a\times y^2 - b\times x\times y$$
 
 where $\frac{\text{d}x}{\text{d}t}$ and $\frac{\text{d}y}{\text{d}t}$ represent the growth rate of the populations, where $R$ and $r$ represent the intrinsec growth rate for the $x$ and $y$ populations respectively. The parameters $A$ and $B$ are respectively the intraspecific and interspesific coefficients for the $x$ population. The parameters $a$ and $b$ are the the intraspecific and interspecific coefficients for the $y$ population. All of thoses coefficients are positives. 
 
-We can see that both populations growth rate will increase in regards of the following terms: $R \times x$ for the $x$ population and $r \times y$ for the $y$ population. Those terms represent the assumed intrinsic exponential growth of the species when there is no competition.
+We can see that both populations growth rate will increase in regards of the following terms: ($R \times x$) for the $x$ population and ($r \times y$) for the $y$ population. Those terms represent the assumed intrinsic exponential growth of the species when there is no competition.
 
-On the other hand, both populations growth rate will decrease in regards to the following terms: $A\times x^2$, $B\times x\times y$ for the $x$ population and $a\times y^2$, $b\times x\times y$ for the $t$ population. Those terms represents respectively the impact of the intra and inter specific competition. 
+On the other hand, both populations growth rate will decrease in regards to the following terms: ($A\times x^2$), ($B\times x\times y$) for the $x$ population and ($a\times y^2$), ($b\times x\times y$) for the $y$ population. Those terms represents respectively the impact of the intra and inter specific competition. 
 
 # Model analysis
 
@@ -153,7 +153,10 @@ $$ \frac{a}{B} < \frac{r}{R} < \frac{b}{A}$$
 We will now simulate this model as an ordinary differential equation problem, under four combination of parameters. Let's start with the definition of the model:
 
 ```julia
-# Problem definition
+"""
+This function defines the logistic growth model with competition, by taking in argument the initial population sizes, the parameters p, and time.
+"""
+
 function competition(u0, p, t)
     x, y = u0 # Initial populations sizes
     dx = p.R*x - p.A*x*x - p.B*x*y # variation of the x population
@@ -303,7 +306,7 @@ print("Expected value of (x̂,ŷ): $(eq_1_sp_x(rand_p_x))")
 p1 = plot(solution_x, title = "Extinction of the y population \n$(rand_p_x)", xlab="Time", ylab="Population size")
 plot(p1, lab=["x" "y"], ylim=(0,1.2), minorgrid=true, left_margin = 10mm, bottom_margin = 10mm)
 ```
-In the graph above, we can see that the model reacts as predicted. When all parameters are kept constant and equal, except for the growth rate, the population with the smaller growth rate (here the $y$ population) will go extinct. When comparing the surviving population size to the expected value ($\frac{R}{A}$), we can see they correspond. 
+In the graph above, we can see that the model reacts as predicted. When all parameters are kept constant and equal, except for two, the population with the smaller growth rate or the higher competition coefficient (here the $y$ population) will go extinct. When comparing the surviving population size to the expected value ($\frac{R}{A}$), we can see they correspond. 
 
 ### Simulation 2: x goes extinct, y survives 
 
@@ -314,7 +317,7 @@ print("Expected value of (x̂,ŷ): $(eq_1_sp_y(rand_p_y))")
 p2 = plot(solution_y, title = "Extinction of the x population \n$(rand_p_y)", xlab="Time", ylab="Population size")
 plot(p2, lab=["x" "y"], ylim=(0,1.2), minorgrid=true, left_margin = 10mm, bottom_margin = 10mm)
 ```
-In the graph above, we can see that the model react as predicted. When all parameters are kept constant and equal, except for the growth rate, the population with the smaller growth rate (here the $x$ population) will go extinct. When comparing the surviving population size to the expected value ($\frac{r}{a}$), we can see they correspond. 
+In the graph above, we can see that the model react as predicted. When all parameters are kept constant and equal, except for two, the population with the smaller growth rate or the higner competition coefficient (here the $x$ population) will go extinct. When comparing the surviving population size to the expected value ($\frac{r}{a}$), we can see they correspond. 
 
 ### Simulation 3: both populations are expected to survive (first condition)
 

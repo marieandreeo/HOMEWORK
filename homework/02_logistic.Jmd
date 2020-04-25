@@ -162,25 +162,25 @@ prob_strong6 = ODEProblem(allee_strong, 110.0, t, p) #n0 starting above the last
     
 # Resolving the ODE problems and plotting them for each cases
 solution_strong1 = solve(prob_strong1)
-plot(solution_strong1, label ="Initial population size: 0 ", c=:blue) #n0 corresponding to the first equilibrium
+plot(solution_strong1, label ="Initial population size: 0 ", c=:orange) #n0 corresponding to the first equilibrium
 
 solution_strong2 = solve(prob_strong2)
-plot!(solution_strong2, label ="Initial population size: 20 ", c=:orange) #n0 starting between the first and second equilibrium
+plot!(solution_strong2, label ="Initial population size: 20 ", c=:blue) #n0 starting between the first and second equilibrium
 
 solution_strong3 = solve(prob_strong3)
-plot!(solution_strong3, label ="Initial population size: 55 ", c=:purple)  #n0 starting between the second and third equilibrium
+plot!(solution_strong3, label ="Initial population size: 55 ", c=:red)  #n0 starting between the second and third equilibrium
 
 solution_strong4 = solve(prob_strong4)
 plot!(solution_strong4, label ="Initial population size: 30 ", c=:green) #n0 corresponding to the second equilibrium
 
 solution_strong5 = solve(prob_strong5)
-plot!(solution_strong5, label ="Initial population size: 100 ", c=:red) #n0 corresponding to the third equilibrium
+plot!(solution_strong5, label ="Initial population size: 100 ", c=:purple) #n0 corresponding to the third equilibrium
 
 solution_strong6 = solve(prob_strong6)
-plot!(solution_strong6, label ="Initial population size: 110 ", xlim=(0,200), c=:yellow, xlabel = "Time", ylabel ="Population size (n)", title="Simulations for the strong Allee effect", left_margin = 10mm, bottom_margin = 10mm) #n0 starting above the last equilibrium
+plot!(solution_strong6, label ="Initial population size: 110 ", xlim=(0,200), c=:pink, xlabel = "Time", ylabel ="Population size (n)", title="Simulations for the strong Allee effect", left_margin = 10mm, bottom_margin = 10mm) #n0 starting above the last equilibrium
 
 ```
-We can see from the graph above that every simulation ends up where predicted, no matter on which side of the equilibrium it starts. The simulations starting with a population size corresponding to an equilibrium for the strong allee effect ($n=0$, $n=A$, $n=K$) do not vary and stays at equilibrium over time. In the strong Allee effect, the population starting between 0 and the critical size $A$ is attended to diminish until reaching the extinction (i.e $n=0$). With the orange line, we can graphically see that this is the case. The population starting between the critical size $A$ and the support capacity $K$ is attended to grow until it reaches the support capacity ($n=K$). This is confirmed by the green line. Finally, a population starting above the support capacity is attended to be downsizing until reaching the support capacity ($n=K$). This is confirmed by the yellow line. 
+We can see from the graph above that every simulation ends up where predicted, no matter on which side of the equilibrium it starts. The simulations starting with a population size corresponding to an equilibrium for the strong Allee effect ($n=0$, $n=A$, $n=K$) do not vary and stay at equilibrium over time. In the strong Allee effect, the population starting between 0 and the critical size $A$ is expected to diminish until reaching extinction (i.e $n=0$). With the blue line, we can graphically see that this is the case. The population starting between the critical size $A$ and the support capacity $K$ is expected to grow until it reaches the support capacity ($n=K$). This is confirmed by the red line. Finally, a population starting above the support capacity is expected to be downsizing until reaching the support capacity ($n=K$). This is confirmed by the pink line. 
 
 # Conclusions
 
