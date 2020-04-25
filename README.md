@@ -21,7 +21,7 @@ curved.
 |:----:| -------------------------------------------------------- | ---- |:----------:| -----------:|
 | `01` | [Bifurcation diagram](/homework/bifurcation)             |  ✔️   |     *      |           4 |
 | `02` | [Logistic growth](/homework/logistic)                    |  ✔️    |     *      |           4 |
-| `03` | [Logistic growth and competition](/homework/competition) |      |     *      |           6 |
+| `03` | [Logistic growth and competition](/homework/competition) |  ✔️    |     *      |           6 |
 | `04` | [Stability](/homework/stability)                         |      |     **     |          10 |
 | `05` | [Spatial dynamics 1](/homework/sd1)                      |      |     *      |           8 |
 | `06` | [Evolutionary branching 1](/homework/eia)                |      |    ***     |          15 |
