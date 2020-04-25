@@ -17,7 +17,7 @@ The strong Allee effect arise when there is a critical density of the population
 
 The weak Allee effect arise when there is no critical density of the population size. Assuming this, the growth rate per capita is always positive and varies as mentionned earlier. 
 
-In this work we will analyse the equilibriums of both Allee effects and we will then verify with a graphical representation that the population size starting from both sides of the equilibrium will end up where it is predicted. 
+In this work we will analyse the equilibriums of both Allee effects and we will then verify with a graphical representation that the population size starting from each sides of the equilibriums will end up where it is predicted. 
 
 # Required packages
 
@@ -33,7 +33,7 @@ We will first start the implementation of the Allee effect model with the logist
 
 $$\frac{\text{d}}{\text{d}t}n = n\times r\times \left(1-\frac{n}{K}\right)$$
 
-In this equation, $n$ represents the population size at time $t$, $r$ represents the intrinsec growth rate of the population and $K$ represents the support capacity of the population. To obtain the strong Allee effect model we then multiply this equation by $\left(\frac{n}{A}-1\right)$ to obtain the following equation:
+In this equation, $n$ represents the population size at time $t$, $r$ represents the intrinsec growth rate of the population and $K$ represents the support capacity of the population. To obtain the strong Allee effect model, we then multiply this equation by $\left(\frac{n}{A}-1\right)$ to obtain the following equation:
 
 <!-- Use the two models for the strong and weak Allee effect, respectively -->
 
@@ -75,8 +75,10 @@ We will now confirm those equilibrium for both models with graphical techniques:
 Starting with the simulation of the strong Allee effect:
 
 ```julia
-# Generating the strong Allee effect function taking the initial 
-# population size n0, different parameters p and a time vector t
+
+"""
+This function generates the strong Allee effect, by taking the initial population size n0, different parameters p and a time vector t
+"""
 function allee_strong(n0, p, t)
     n = n0
     dn_dt_n_strong = n*p.r*((((n/p.A)-1))*(1-(n/p.K)))
@@ -116,8 +118,10 @@ The green vertical lines were placed where the equilibriums were expected to be 
 Now, simulating the weak Allee effect:
 
 ```julia
-# Generating the strong Allee effect function taking the initial 
-# population size n0, different parameters p and a time vector t
+
+"""
+This function generates the strong Allee effect, by taking the initial population size n0, different parameters p and a time vector t
+"""
 function allee_weak(n0, p, t)
     n=n0
     dn_dt_n_weak = (p.r*(n^2)/p.K)*(1-(n/p.K))
@@ -176,7 +180,7 @@ solution_strong6 = solve(prob_strong6)
 plot!(solution_strong6, label ="Initial population size: 110 ", xlim=(0,200), c=:yellow, xlabel = "Time", ylabel ="Population size (n)", title="Simulations for the strong Allee effect", left_margin = 10mm, bottom_margin = 10mm) #n0 starting above the last equilibrium
 
 ```
-
+We can see from the graph above that every simulation ends up where predicted, no matter on which side of the equilibrium it starts. The simulations starting with a population size corresponding to an equilibrium for the strong allee effect ($n=0$, $n=A$, $n=K$) do not vary and stays at equilibrium over time. In the strong Allee effect, the population starting between 0 and the critical size $A$ is attended to diminish until reaching the extinction (i.e $n=0$). With the orange line, we can graphically see that this is the case. The population starting between the critical size $A$ and the support capacity $K$ is attended to grow until it reaches the support capacity ($n=K$). This is confirmed by the green line. Finally, a population starting above the support capacity is attended to be downsizing until reaching the support capacity ($n=K$). This is confirmed by the yellow line. 
 
 # Conclusions
 
