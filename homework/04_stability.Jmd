@@ -18,10 +18,107 @@ using Plots
 using DifferentialEquations
 ```
 
-## Model description and justification
+# Model description and justification
 
-## Model analysis
+The model for predators and preys can be expressed with the following equations:
 
-## Simulations
+$$\frac{\text{d}x}{\text{d}t} = r\times x - \alpha\times x^2 - \beta\times x\times y$$
 
-## Conclusions
+$$\frac{\text{d}y}{\text{d}t} = \gamma\times y\times y - \delta\times y$$
+
+where $\frac{\text{d}x}{\text{d}t}$ and $\frac{\text{d}y}{\text{d}t}$ represent the growth rate of the prey and predator populations respectively, where $r$ represent the intrinsec growth rate for the prey, $\alpha$ represent their intraspecific competition coefficient and $\beta$ represent their consomation rate by the predators. The parameters $\gamma$ represent the intrinsec growth rate of the predator according to its consumation of preys and $\delta$ is the death rate of the predators. All of thoses coefficients are positives. 
+
+
+# Model analysis
+
+## Finding the equilibriums
+
+We will now find the equilibriums for this continuous model. To achieve this, we have to find the values of both population sizes at equilibrium ($\hat x$ and $\hat y$) for which there is no more variation of size (i.e $\frac{\text{d}x}{\text{d}t} = 0$ and $\frac{\text{d}y}{\text{d}t} = 0$):
+
+$$\frac{\text{d}x}{\text{d}t} = r\times x - \alpha\times x^2 - \beta\times x\times y = 0$$
+
+$$\frac{\text{d}y}{\text{d}t} = \gamma\times x\times y - \delta\times y = 0$$
+
+We can re-express those equations to find more easily the equilibriums :
+
+$$\frac{\text{d}x}{\text{d}t} = x\times [r - \alpha\times x - \beta\times y] = 0$$
+
+$$\frac{\text{d}y}{\text{d}t} = y\times [\gamma\times x - \delta] = 0$$
+
+The **first equilibrium** arises with $\hat x_1 = 0$ and $\hat y_1 = 0$.
+
+If we then consider that the predator population goes extinct($y=0$), we obtain:
+
+$$\frac{\text{d}x}{\text{d}t} = x\times [r - \alpha\times x] = 0$$
+
+$$\frac{\text{d}x}{\text{d}t} = r - \alpha\times x = 0$$
+
+And we can find the **second equilibrium** at $\hat x_2 = \frac{r}{\alpha}$ and $\hat y_2 = 0$.
+
+If we then consider that the prey population goes extinct ($x=0$), we obtain:
+
+$$\frac{\text{d}y}{\text{d}t} = y\times [ - \delta ] = 0$$
+
+meaning that there is no value  of $\hat y$ that is greater than zero when the prey population goes extinct, leading to no equilibrium points in this situation.
+
+Finally, we can find the last equilibrium, when both preys and predators are present, with the following:
+
+$$[r - \alpha\times x - \beta\times y] = 0$$
+
+$$[\gamma\times x - \delta] = 0$$
+
+If we isolate $x$ from the second equation we obtain:
+
+$$ x = [\frac{\delta}{\gamma}] $$
+
+If we replace the expression of $x$ in the first equation we obtain:
+
+$$[r - \frac{\alpha\times \delta}{\gamma} - \beta\times y] = 0$$
+
+$$ y = [\frac{r}{\beta} - \frac{\alpha\times \delta}{\gamma\times \beta} - \beta\times y]$$
+
+giving as the **third equilibrium** $\hat x_3 = \frac{\delta}{\gamma}$ and $\hat y_3 = [\frac{r}{\beta} - \frac{\alpha\times \delta}{\gamma\times \beta} - \beta\times y]$.
+
+
+## Discussion of stability
+
+To analyse the local stability of our model, we can construct its Jacobian matrix and evaluate it at our equilibrium points, considering that it is in continuous time and a nonlinear and multivariablemodel. To do so, we have to find the partial derivatives of the equations describing our model, in regard of each variable, and assemble those expressions to obtain the $J$ matrice, where each line is associate with a function of our model and each columns is associated with a variable. The prey and predator model that we are studying is described by two functions and two variables, we will then obtain a 2x2 matrice like the following:
+
+\begin{equation*} J = \begin{pmatrix} \frac{\partial \dot x}{\partial x} & \frac{\partial \dot x}{\partial y} \\ \frac{\partial \dot y}{\partial x} & \frac{\partial \dot y}{\partial y} \end{pmatrix} \end{equation*}
+
+\begin{equation*} J = \begin{pmatrix} r - 2\alpha x - \beta y & - \beta x \\ \gamma y & \gamma x - \delta \end{pmatrix} \end{equation*}
+
+From this matrice, we can get some information about the stability of each equilibrium points. Typically, an equilibrium point is stable if the real part of its eigen value is negative. EXPLICATIONS ALGÉBRIQUE.
+
+For the **first equilibrium point** ($\hat x_1 = 0$ and $\hat y_1 = 0$) we obtain the following matrice:
+
+\begin{equation*} J = \begin{pmatrix} r & 0 \\ 0 & - \delta \end{pmatrix} \end{equation*}
+
+Here, to facilitate our work, we can use a linear algebra proprety of diagonal matrices; the point will be stable if all the elements of the diagonal are negative. Here, knowing that both $r$ and $\delta$ are positive coefficients, we can then conclude that the first equilibrium is **unstable**.
+
+For the **second equilibrium point** ($\hat x_2 = \frac{r}{\alpha}$ and $\hat y_2 = 0$) we obtain the following matrice:
+
+\begin{equation*} J = \begin{pmatrix} -r  & - frac{\beta r}{\alpha} \\ 0 & \frac{r\gamma}{\alpha} - \delta \end{pmatrix} \end{equation*}
+
+Using the Routh-Hurwitz criteria for a 2x2 matrice, we know that an equilibrium point is stable if the trace of the matrice is smaller than zero ($Tr(J) = J_11  + J_22 < 0$) and if the determinant is greater than zero ($Det(J) = J_11 J_22 - J_21 J_12 > 0$):
+
+$$Tr(J) = -r + \frac{r\gamma}{\alpha} - \delta < 0$$
+
+$$ \frac{r\gamma}{\alpha} < r + \delta $$ 
+
+$$Det(J) = (-r)(\frac{r\gamma}{\alpha} - \delta) - (0)(- frac{\beta r}{\alpha}) > 0$$
+
+$$Det(J) = (-r)(\frac{r\gamma}{\alpha} - \delta) > 0$$
+
+
+......
+
+For the **third equilibrium point** ($\hat x_3 = \frac{\delta}{\gamma}$ and $\hat y_3 = [\frac{r}{\beta} - \frac{\alpha\times \delta}{\gamma\times \beta} - \beta\times y]$), we obtain the following matrice:
+
+\begin{equation*} J = \begin{pmatrix} r - 2 \frac{\delta \alpha}{\gamma} - \beta [\frac{r}{\beta} - \frac{\alpha\times \delta}{\gamma\times \beta} - \beta\times y] & - \beta \frac{\delta}{\gamma} \\ \gamma [\frac{r}{\beta} - \frac{\alpha\times \delta}{\gamma\times \beta} - \beta\times y] & \gamma \frac{\delta}{\gamma} - \delta \end{pmatrix} \end{equation*}
+
+
+
+# Simulations
+
+# Conclusions
