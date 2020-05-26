@@ -18,6 +18,7 @@ In this work, we will first identify the equilibriums points between the prey an
 ```julia
 using Plots
 using DifferentialEquations
+using Measures
 ```
 
 # Model description and justification
@@ -201,7 +202,7 @@ prob_eq1 = ODEProblem(predation, u0_eq1, t_eq1, p_eq1)
 solution_eq1 = solve(prob_eq1)
 
 # Plot the solution before perturbation
-plot(solution_eq1, label=["Prey before perturbation" "Predator before perturbation"], xlabel ="Time", ylabel="Population sizes", title="Simulation of the first equilibrium")
+plot(solution_eq1, label=["Prey before perturbation" "Predator before perturbation"], xlabel ="Time", ylabel="Population sizes", title="Simulation of the first equilibrium", left_margin = 10mm, bottom_margin = 10mm)
 ```
 We can see here that when the populations are starting with those sizes, corresponding to the first equilibrium point, there is no variation in population sizes over time. This result is a trivial one, because in the absence of both preys and predators, there is no chance for the population sizes to vary.
 
@@ -221,7 +222,7 @@ pert_prob_eq1 = ODEProblem(predation, pert_u0_eq1, pert_t_eq1, p_eq1)
 pert_solution_eq1 = solve(pert_prob_eq1)
 
 # Plot the solutionafter perturbation
-plot!(pert_solution_eq1, xlab="Time", ylab="Population sizes", label=["Prey after perturbation" "Predator after perturbation"],legend=:right, xlim=(0,400))
+plot!(pert_solution_eq1, xlab="Time", ylab="Population sizes", label=["Prey after perturbation" "Predator after perturbation"],legend=:right, xlim=(0,400), left_margin = 10mm, bottom_margin = 10mm)
 scatter!([200], [pert_u0_eq1[1]], c=:red, lab="Application of perturbation")
 ```
 Here, we can see that after the application of the perturbation, the system diverge from its equilibrium. This simulation confirms the unstability of the first equilibrium that was previously found analytically. 
@@ -249,7 +250,7 @@ prob_eq2 = ODEProblem(predation, u0_eq2, t_eq2, p_eq2)
 solution_eq2 = solve(prob_eq2)
 
 # Plot the solution before perturbation
-plot(solution_eq2, label=["Prey before perturbation" "Predator before perturbation"], xlabel ="Time", ylabel="Population sizes", title="Simulation of the second equilibrium")
+plot(solution_eq2, label=["Prey before perturbation" "Predator before perturbation"], xlabel ="Time", ylabel="Population sizes", title="Simulation of the second equilibrium", left_margin = 10mm, bottom_margin = 10mm)
 ```
 
 Analytically, we saw that this equilibrium is stable under the following condition: $ \frac{r}{\alpha} < \frac{\delta}{\gamma} $. Knowing that, we will now define a function that will allows us to chose a combination of parameters for both stable and unstable equilibriums:
@@ -312,7 +313,7 @@ prob_eq2_stable = ODEProblem(predation, u0_eq2_stable, t_eq2_stable, p_eq2_stabl
 solution_eq2_stable = solve(prob_eq2_stable)
 
 # Plot the solution before perturbation
-plot(solution_eq2_stable, label=["Prey before perturbation" "Predator before perturbation"], xlabel ="Time", ylabel="Population sizes", title="Simulation of the second equilibrium in stability conditions")
+plot(solution_eq2_stable, label=["Prey before perturbation" "Predator before perturbation"], xlabel ="Time", ylabel="Population sizes", title="Simulation of the second equilibrium in stability conditions", left_margin = 10mm, bottom_margin = 10mm)
 
 ## Simulation for the stable equilibrium after perturbation
 # t0 - t end with perturbation
@@ -328,7 +329,7 @@ pert_prob_eq2_stable = ODEProblem(predation, pert_u0_eq2_stable, pert_t_eq2_stab
 pert_solution_eq2_stable = solve(pert_prob_eq2_stable)
 
 # Plot the solutionafter perturbation
-plot!(pert_solution_eq2_stable, xlab="Time", ylab="Population sizes", label=["Prey after perturbation" "Predator after perturbation"], xlim=(0,400))
+plot!(pert_solution_eq2_stable, xlab="Time", ylab="Population sizes", label=["Prey after perturbation" "Predator after perturbation"], xlim=(0,400), left_margin = 10mm, bottom_margin = 10mm)
 scatter!([200], [pert_u0_eq2_stable[1]], c=:red, lab="Application of perturbation (Prey)")
 scatter!([200], [pert_u0_eq2_stable[2]], c=:blue, lab="Application of perturbation (Predator)", legend =:best)
 ```
@@ -346,7 +347,7 @@ p_eq2_stable = parameters_eq2("stable")
 for model_run in 1:50
     prob = ODEProblem(predation, rand(2), t_eq2_stable, p_eq2_stable)
     sol = solve(prob)
-    plot!(p2_stable, sol, vars=(1,2), leg=false, c=:teal, alpha=0.2)
+    plot!(p2_stable, sol, vars=(1,2), leg=false, c=:teal, alpha=0.2, left_margin = 10mm, bottom_margin = 10mm)
 end
 
 #Defining axes and title
@@ -380,7 +381,7 @@ prob_eq2_unstable = ODEProblem(predation, u0_eq2_unstable, t_eq2_unstable, p_eq2
 solution_eq2_unstable = solve(prob_eq2_unstable)
 
 # Plot the solution before perturbation
-plot(solution_eq2_unstable, label=["Prey before perturbation" "Predator before perturbation"], xlabel ="Time", ylabel="Population sizes", title="Simulation of the second equilibrium in unstability conditions")
+plot(solution_eq2_unstable, label=["Prey before perturbation" "Predator before perturbation"], xlabel ="Time", ylabel="Population sizes", title="Simulation of the second equilibrium in unstability conditions", left_margin = 10mm, bottom_margin = 10mm)
 
 ## Simulation for the unstable equilibrium after perturbation
 # t0 - t end with perturbation
@@ -396,7 +397,7 @@ pert_prob_eq2_unstable = ODEProblem(predation, pert_u0_eq2_unstable, pert_t_eq2_
 pert_solution_eq2_unstable = solve(pert_prob_eq2_unstable)
 
 # Plot the solutionafter perturbation
-plot!(pert_solution_eq2_unstable, xlab="Time", ylab="Population sizes", label=["Prey after perturbation" "Predator after perturbation"], xlim=(0,800))
+plot!(pert_solution_eq2_unstable, xlab="Time", ylab="Population sizes", label=["Prey after perturbation" "Predator after perturbation"], xlim=(0,800), left_margin = 10mm, bottom_margin = 10mm)
 scatter!([200], [pert_u0_eq2_unstable[1]], c=:red, lab="Application of perturbation (Prey)")
 scatter!([200], [pert_u0_eq2_unstable[2]], c=:blue, lab="Application of perturbation (Predator)", legend =:right)
 ```
@@ -413,7 +414,7 @@ for model_run in 1:50
     prob = ODEProblem(predation, rand(2), t_eq2_stable, p_eq2_unstable) 
     sol = solve(prob)
     plot!(p2_unstable, sol, vars=(1,2), leg=false, c=:orange,
-    alpha=0.2) 
+    alpha=0.2, left_margin = 10mm, bottom_margin = 10mm) 
 end
 
 #Defining axes and title
@@ -449,7 +450,7 @@ prob_eq3 = ODEProblem(predation, u0_eq3, t_eq3, p_eq3)
 solution_eq3 = solve(prob_eq3)
 
 # Plot the solution before perturbation
-plot(solution_eq3, label=["Prey before perturbation" "Predator before perturbation"], xlabel ="Time", ylabel="Population sizes", title="Simulation of the third equilibrium")
+plot(solution_eq3, label=["Prey before perturbation" "Predator before perturbation"], xlabel ="Time", ylabel="Population sizes", title="Simulation of the third equilibrium", left_margin = 10mm, bottom_margin = 10mm)
 ```
 Analytically, we saw that this equilibrium is stable under the following condition: $ \frac{r}{\alpha} > \frac{\delta}{\gamma} $. Knowing that, we will now define a function that will allows us to chose a combination of parameters for both stable and unstable equilibriums:
 
@@ -511,7 +512,7 @@ prob_eq3_stable = ODEProblem(predation, u0_eq3_stable, t_eq3_stable, p_eq3_stabl
 solution_eq3_stable = solve(prob_eq3_stable)
 
 # Plot the solution before perturbation
-plot(solution_eq3_stable, label=["Prey before perturbation" "Predator before perturbation"], xlabel ="Time", ylabel="Population sizes", title="Simulation of the third equilibrium in stability conditions")
+plot(solution_eq3_stable, label=["Prey before perturbation" "Predator before perturbation"], xlabel ="Time", ylabel="Population sizes", title="Simulation of the third equilibrium in stability conditions", left_margin = 10mm, bottom_margin = 10mm)
 
 #Simulation for the stable equilibrium after perturbation
 # t0 - t end with perturbation
@@ -527,7 +528,7 @@ pert_prob_eq3_stable = ODEProblem(predation, pert_u0_eq3_stable, pert_t_eq3_stab
 pert_solution_eq3_stable = solve(pert_prob_eq3_stable)
 
 # Plot the solutionafter perturbation
-plot!(pert_solution_eq3_stable, xlab="Time", ylab="Population sizes", label=["Prey after perturbation" "Predator after perturbation"], xlim=(0,400))
+plot!(pert_solution_eq3_stable, xlab="Time", ylab="Population sizes", label=["Prey after perturbation" "Predator after perturbation"], xlim=(0,400), left_margin = 10mm, bottom_margin = 10mm)
 scatter!([200], [pert_u0_eq3_stable[1]], c=:red, lab="Application of perturbation (Prey)")
 scatter!([200], [pert_u0_eq3_stable[2]], c=:blue, lab="Application of perturbation (Predator)", legend =:best)
 ```
@@ -544,7 +545,7 @@ p_eq3_stable = parameters_eq3("stable")
 for model_run in 1:50
     prob = ODEProblem(predation, rand(2), t_eq3_stable, p_eq3_stable)
     sol = solve(prob)
-    plot!(p3_stable, sol, vars=(1,2), leg=false, c=:teal, alpha=0.2)
+    plot!(p3_stable, sol, vars=(1,2), leg=false, c=:teal, alpha=0.2, left_margin = 10mm, bottom_margin = 10mm)
 end
 
 #Defining axes and title
@@ -578,7 +579,7 @@ prob_eq3_unstable = ODEProblem(predation, u0_eq3_unstable, t_eq3_unstable, p_eq3
 solution_eq3_unstable = solve(prob_eq3_unstable)
 
 # Plot the solution before perturbation
-plot(solution_eq3_unstable, label=["Prey before perturbation" "Predator before perturbation"], xlabel ="Time", ylabel="Population sizes", title="Simulation of the third equilibrium in unstability conditions")
+plot(solution_eq3_unstable, label=["Prey before perturbation" "Predator before perturbation"], xlabel ="Time", ylabel="Population sizes", title="Simulation of the third equilibrium in unstability conditions", left_margin = 10mm, bottom_margin = 10mm)
 
 #Simulation for the unstable equilibrium after perturbation
 # t0 - t end with perturbation
@@ -594,7 +595,7 @@ pert_prob_eq3_unstable = ODEProblem(predation, pert_u0_eq3_unstable, pert_t_eq3_
 pert_solution_eq3_unstable = solve(pert_prob_eq3_unstable)
 
 # Plot the solutionafter perturbation
-plot!(pert_solution_eq3_unstable, xlab="Time", ylab="Population sizes", label=["Prey after perturbation" "Predator after perturbation"], xlim=(0,800))
+plot!(pert_solution_eq3_unstable, xlab="Time", ylab="Population sizes", label=["Prey after perturbation" "Predator after perturbation"], xlim=(0,800), left_margin = 10mm, bottom_margin = 10mm)
 scatter!([200], [pert_u0_eq3_unstable[1]], c=:red, lab="Application of perturbation (Prey)")
 scatter!([200], [pert_u0_eq3_unstable[2]], c=:blue, lab="Application of perturbation (Predator)", legend =:right)
 ```
@@ -612,7 +613,7 @@ for model_run in 1:50
     prob = ODEProblem(predation, rand(2), t_eq3_unstable, p_eq3_unstable) 
     sol = solve(prob)
     plot!(p3_unstable, sol, vars=(1,2), leg=false, c=:orange,
-    alpha=0.2) 
+    alpha=0.2, left_margin = 10mm, bottom_margin = 10mm) 
 end
 
 ## Identifying axes and title
