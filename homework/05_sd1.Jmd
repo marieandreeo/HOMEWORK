@@ -6,29 +6,80 @@ layout: page
 
 # Introduction
 
-> The Levins model describes the occupancy of a series of patches, as a function
-> of their colonization and extinction rate. Find the proportion of occupied
-> patches at equilibrium, and then perform a simulation using an ordinary
-> differential equation to confirm the results. Finally, assuming that the
-> environment can be represented by a series of patches where patch i can
-> colonize both (i-1) and (i+1), perform a simple simulation to see if you reach
-> the same results, and discuss.
+<!--The Levins model describes the occupancy of a series of patches, as a function of their colonization and extinction rate. Find the proportion of occupied patches at equilibrium, and then perform a simulation using an ordinary differential equation to confirm the results. Finally, assuming that the environment can be represented by a series of patches where patch i can colonize both (i-1) and (i+1), perform a simple simulation to see if you reach the same results, and discuss.-->
 
-## Required packages
+A metapopulation is an ecological concept where a population, composed by individuals from the same specie, are spatially and temporally devided in subpopulations. As a consequence of natural disasters and humain activities, the natural habitats of most species are fragmented into patches, resulting into the formation of metapopulation, where each patches within the distribution area of the specie can either be occupied or not by one of the subpopulations, in a dynamic way. This dynamic is defined by the total number of patches, the proportion of patches that are occupied, and by the local extinction and colonization of a patch. 
+
+In this work, we will first use the Levins model, describing the occupancy of a series of patches, to identify the proportion of occupied patches at equilibrium, and perform a simulation based on an ordinary differential equation to confirm the result. We will then perform a second simulation, using a spatial series of patches, where every patch can colonize its direct neighbours, and compare the results.
+
+# Required packages
 
 ```julia
 using Plots
 using DifferentialEquations
+using StatsBase
+using Statistics
+using Measures
 ```
 
-## Model description and justification
+# Model description and justification
 
-The Levins model is usually defined as $\dot p = c(h-p)p-ep$, where $p$ is the
-proportion of occupied patches, $h$ is the total number of patches, $c$ is the
-colonization rate, and $e$ is the extinction rate in occupied patches.
+The Levins model is usually defined as 
 
-## Model analysis
+$$\dot p = c(h-p)p-ep$$
 
-## Simulations
+where $p$ is the proportion of occupied patches, $h$ is the total number of patches, $c$ is the colonization rate (the rate at which each occupied patches are producing colonies), and $e$ is the extinction rate in occupied patches.
 
-## Conclusions
+This model assumes that the habitat is homogenous and that each patches are providing the same quality of environment and are the same size. Also, the local dynamics within each patches is being ingnored, letting its state to either bein occupied or extinct.
+
+# Model analysis
+
+## Finding the equilibrium
+
+We will first find the equilibrium for this continuous model. To achieve this, we have to find the value of the proportion of occupied patches ($\hat p$) for which there is no more variation in this proportion ($\dot p = 0$):
+
+$$\dot p = c(h-p)p-ep = 0$$
+
+By re-arrenging the terms, we obtain:
+
+$$p[c(h-p)-e] = 0$$
+
+The trivial equilibrium arises when $\hat p_1 = 0$, meaning that if there is no occupied patches within the habitat, there is no way to colonize new ones. 
+
+The second equilibrium can be obtain with the following:
+
+$$c(h-p)-e = 0$$
+
+giving that the second equilibrium corresponds to $\hat p_2 = h - frac{e}{c}$.
+
+# Simulations
+
+We will first visualize the equilibrium of this model with a graphicl technic:
+
+```julia
+
+```
+
+The green vertical lines were placed where the equilibriums were expected to be reached. Knowing that this situation arises when dp/dt = 0 (dashed line), we can graphically see that the two values that were determined earlier ($\hat p_1 = 0, \hat p_2 = h - frac{e}{c}$) are effectively equilibriums.
+
+We will now simulate this model as an ordinary differential equation problem:
+
+```julia
+
+```
+
+Here, starting with a non-zero proportion of occupied patches, we can see that over time this proportion is stabilizing at a value corresponding to the equilibrium that was earlier identify. 
+
+We will now simulate this problem as a series of patches, where patch i can colonize both (i-1) and (i+1).
+
+```julia
+
+```
+
+
+
+
+
+
+# Conclusions
+
