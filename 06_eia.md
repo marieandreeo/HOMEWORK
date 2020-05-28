@@ -1,0 +1,46 @@
+---
+title: "Evolutionary Invasion Analysis 1"
+layout: "page"
+permalink: "eia/"
+---
+
+
+# Introduction
+
+<!--In Brannstrom et al (Games, 2013), there is a model of bird migration timing. Perform an evolutionary invasion analysis of this model, then write code for a simulation study, and discuss the ecological consequences of these results for bird populations under climate change.-->
+
+Adaptative dynamics is a concept that has been created to study evolution, by taking in account both frequency and density dependent selection. Different kind of systems can be studied with this tool, either aploids or diploids populations, sexually or asexually reproducing ones and monomorphic or polymorphic.
+
+In this work, we will study a model of arrival times in migratory birds in their breeding sites. Knowing that an early arrival will expose the individuals to harsh winter conditions, and that a later arrival will increase the chance of missing the peak in abundance of insect larvae to feed the youngs, it would be reasonable to assume that evolution would lead to the optimal arrival time. In fact, the competition for the nesting sites is also influencing the behavior of the birds, opting for rather sooner than later arrival. We will first proceed to an evolutionary invasion analysis of this model. We will then perform a simulation and analyze its outcome in a context of climate change. 
+
+# Required packages
+
+````julia
+using Plots
+using DifferentialEquations
+````
+
+
+
+
+
+# Model description and justification
+
+This migratory time arrival model in birds can be defined in discrete time with the following equation, describing the demographic dynamic of the resident population:
+
+$$n_{t+1} = K\times R(x) + p/times n_t$$
+
+where $K$ represents the total number of available territories (assumed to be smaller than the number of individuals), $x$ represents the arrival time of a resident population, $R(x)$ corresponds to the average of offsprings that will be raised by a bird possessing a territory and $p$ is the probability of an individual to survive from one year to the other.
+
+
+
+
+
+
+
+
+# Model analysis
+
+# Simulations
+
+# Conclusions
